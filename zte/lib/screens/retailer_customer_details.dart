@@ -44,7 +44,6 @@ class _ViewCustomerState extends State<ViewCustomer> {
                   width: double.infinity,
                   height: double.infinity,
                 ),
-                Container(color: Colors.black.withOpacity(0.7)),
               ],
             ),
           ),
@@ -83,7 +82,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
                       Icon(
                         Icons.inbox_outlined,
                         size: 64,
-                        color: Color(0xff0878fe),
+                        color: Color(0xff244D9C),
                       ),
                       const SizedBox(height: 16),
                       Text(
@@ -165,7 +164,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 20, color: Color(0xff0878fe)),
+            Icon(icon, size: 20, color: Color(0xff244D9C)),
             const SizedBox(width: 12),
           ],
           Expanded(
@@ -187,7 +186,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontSize: 14,
-                color: value.isEmpty ? Colors.grey[500] : Color(0xff0878fe),
+                color: value.isEmpty ? Colors.grey[500] : Color(0xff244D9C),
                 fontWeight: value.isEmpty ? FontWeight.normal : FontWeight.w500,
               ),
             ),
@@ -210,7 +209,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 20, color: Color(0xff0878fe)),
+            Icon(icon, size: 20, color: Color(0xff244D9C)),
             const SizedBox(width: 12),
           ],
           Expanded(
@@ -292,7 +291,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
             value: details.alternateNumber,
             icon: Icons.phone_android_outlined,
           ),
-          const Divider(height: 24, color: Color(0xFFdccf7b)),
+          const Divider(height: 24, color: Color(0xff244D9C)),
           _buildAddressSection(details.address),
         ],
       ),
@@ -317,7 +316,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
             Icon(
               Icons.location_on_outlined,
               size: 20,
-              color: Color(0xff0878fe),
+              color: Color(0xff244D9C),
             ),
             const SizedBox(width: 12),
             Text(
@@ -339,7 +338,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               fontSize: 14,
-              color: fullAddress.isEmpty ? Colors.grey[500] : Color(0xff0878fe),
+              color: fullAddress.isEmpty ? Colors.grey[500] : Color(0xff244D9C),
               fontWeight:
                   fullAddress.isEmpty ? FontWeight.normal : FontWeight.w500,
             ),
@@ -503,7 +502,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(Icons.note_outlined, size: 20, color: Color(0xff0878fe)),
+                Icon(Icons.note_outlined, size: 20, color: Color(0xff244D9C)),
                 const SizedBox(width: 12),
                 Expanded(
                   child: GestureDetector(
@@ -517,13 +516,13 @@ class _ViewCustomerState extends State<ViewCustomer> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(18),
                                 side: const BorderSide(
-                                  color: Color(0xff0878fe), // Yellow border
+                                  color: Color(0xff244D9C), // Yellow border
                                   width: 1,
                                 ),
                               ),
                               title: const Text(
                                 'Remark',
-                                style: TextStyle(color: Color(0xff0878fe)),
+                                style: TextStyle(color: Color(0xff244D9C)),
                               ),
                               content: SizedBox(
                                 height: 200,
@@ -541,7 +540,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
                                       Text(
                                         customer.notes,
                                         style: const TextStyle(
-                                          color: Color(0xff0878fe),
+                                          color: Color(0xff244D9C),
                                           fontSize: 14,
                                         ),
                                       ),
@@ -552,7 +551,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
                               actions: [
                                 TextButton(
                                   style: TextButton.styleFrom(
-                                    backgroundColor: const Color(0xff0878fe),
+                                    backgroundColor: const Color(0xff244D9C),
                                     foregroundColor: Colors.white,
                                     padding: const EdgeInsets.symmetric(
                                       horizontal: 16,
@@ -595,7 +594,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 14,
-                            color: Color(0xff0878fe),
+                            color: Color(0xff244D9C),
                             fontWeight: FontWeight.w500,
                           ),
                         ),

@@ -697,7 +697,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
             width: double.infinity,
             padding: EdgeInsets.all(32),
             decoration: BoxDecoration(
-              color: Color(0xff0878fe),
+              color: Color(0xff244D9C),
               borderRadius: BorderRadius.circular(16),
               border: Border.all(color: Color(0xFFFFFFFF), width: 1),
             ),
@@ -1009,7 +1009,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                 const Text(
                   'Logout',
                   style: TextStyle(
-                    color: Color(0xFF0878fe),
+                    color: Color(0xff244D9C),
                     fontWeight: FontWeight.bold,
                     fontSize: 22,
                   ),

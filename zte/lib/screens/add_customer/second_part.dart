@@ -275,10 +275,10 @@ class _SecondPartState extends State<SecondPart> {
         readOnly: readOnly,
         keyboardType: inputType,
         inputFormatters: _getInputFormatters(key),
-        style: const TextStyle(color: Color(0xff0878fe)),
+        style: const TextStyle(color: Color(0xff244D9C)),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Color(0xff0878fe)),
+          labelStyle: const TextStyle(color: Color(0xff244D9C)),
           errorText: _fieldErrors[key],
           errorStyle: const TextStyle(color: Colors.red),
           filled: true,
@@ -288,7 +288,7 @@ class _SecondPartState extends State<SecondPart> {
               color:
                   _fieldErrors[key] != null
                       ? Colors.red
-                      : const Color(0xff0878fe),
+                      : const Color(0xff244D9C),
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -297,7 +297,7 @@ class _SecondPartState extends State<SecondPart> {
               color:
                   _fieldErrors[key] != null
                       ? Colors.red
-                      : const Color(0xff0878fe),
+                      : const Color(0xff244D9C),
               width: 1.5,
             ),
             borderRadius: BorderRadius.circular(8),
@@ -343,7 +343,7 @@ class _SecondPartState extends State<SecondPart> {
         padding: EdgeInsets.symmetric(vertical: 16),
         child: Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xff0878fe)),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xff244D9C)),
           ),
         ),
       );

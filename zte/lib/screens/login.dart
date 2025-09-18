@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen>
   }) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xff0878fe),
+        color: const Color(0xff244D9C),
         borderRadius: BorderRadius.circular(16),
       ),
       child: TextFormField(
@@ -296,7 +296,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff0878fe),
+      backgroundColor: const Color(0xff244D9C),
       body: SafeArea(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
@@ -330,7 +330,7 @@ class _LoginScreenState extends State<LoginScreen>
                             ),
                             child: Icon(
                               Icons.lock_outline,
-                              color: const Color(0xff0878fe),
+                              color: const Color(0xff244D9C),
                               size: ScreenUtil.unitHeight * 50,
                             ),
                           ),

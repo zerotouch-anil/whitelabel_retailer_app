@@ -29,7 +29,7 @@ class FirstPart extends StatefulWidget {
 }
 
 class _FirstPartState extends State<FirstPart> {
-  static const Color _goldenColor = Color(0xff0878fe);
+  static const Color _goldenColor = Color(0xff244D9C);
 
   Brand? selectedBrand;
   int? selectedDuration;
@@ -146,7 +146,7 @@ class _FirstPartState extends State<FirstPart> {
                                       'Your wallet balance is insufficient to proceed with this transaction.\n'
                                       'Please add funds to your wallet and try again.',
                                       style: TextStyle(
-                                        color: Color(0xff0878fe),
+                                        color: Color(0xff244D9C),
                                         fontSize: 14,
                                         height: 1.4,
                                       ),
@@ -537,7 +537,7 @@ class _FirstPartState extends State<FirstPart> {
 
   Widget _buildDetailsCard() {
     return Card(
-      color: Color(0xff0878fe),
+      color: Color(0xff244D9C),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       elevation: 2,
       child: Padding(

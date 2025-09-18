@@ -94,7 +94,7 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
                         thumbVisibility: true,
                         thickness: 3,
                         radius: const Radius.circular(20),
-                        thumbColor: const Color(0xff0878fe),
+                        thumbColor: const Color(0xff244D9C),
                         child: Padding(
                           padding: const EdgeInsets.only(right: 12.0),
                           child: GridView.builder(

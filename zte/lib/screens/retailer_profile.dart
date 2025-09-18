@@ -507,7 +507,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xff0878fe),
+                  color: Color(0xff244D9C),
                 ),
               ),
             ],
@@ -571,7 +571,7 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
             child: Text(
               formatUserType(value),
               style: const TextStyle(
-                color: Color(0xff0878fe),
+                color: Color(0xff244D9C),
                 fontWeight: FontWeight.w600,
               ),
             ),

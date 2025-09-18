@@ -98,7 +98,7 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
       appBar: AppBar(
         title: Text(_pageTitles[_currentPage]),
         backgroundColor: const Color(0xffFFFFFF),
-        foregroundColor: const Color(0xff0878fe),
+        foregroundColor: const Color(0xff244D9C),
         elevation: 1,
       ),
       body: FutureBuilder<List<Brand>>(

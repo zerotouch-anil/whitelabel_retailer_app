@@ -274,7 +274,7 @@ class _HistoryDataState extends State<HistoryData> {
                                       color: Color(0xFFdffffff),
                                     ),
                                     borderRadius: BorderRadius.circular(8),
-                                    color: Colors.blue,
+                                    color: Color(0xff244D9C),
                                   ),
 
                                   child: Row(
@@ -326,7 +326,7 @@ class _HistoryDataState extends State<HistoryData> {
                                   decoration: BoxDecoration(
                                     border: Border.all(color: Colors.white),
                                     borderRadius: BorderRadius.circular(8),
-                                    color: Colors.blue,
+                                    color: Color(0xff244D9C),
                                   ),
                                   child: Row(
                                     children: [
@@ -395,7 +395,7 @@ class _HistoryDataState extends State<HistoryData> {
                           decoration: BoxDecoration(
                             border: Border.all(color: Color(0xFFffffff)),
                             borderRadius: BorderRadius.circular(8),
-                            color: Colors.blue,
+                            color: Color(0xff244D9C),
                           ),
                           child: DropdownButtonHideUnderline(
                             child: DropdownButton<String>(
@@ -675,7 +675,7 @@ class _HistoryDataState extends State<HistoryData> {
                                                             side:
                                                                 const BorderSide(
                                                                   color: Color(
-                                                                    0xff0878fe,
+                                                                    0xff244D9C,
                                                                   ),
                                                                   width: 1,
                                                                 ),
@@ -684,7 +684,7 @@ class _HistoryDataState extends State<HistoryData> {
                                                             'Remark',
                                                             style: TextStyle(
                                                               color: Color(
-                                                                0xff0878fe,
+                                                                0xff244D9C,
                                                               ),
                                                             ),
                                                           ),
@@ -718,7 +718,7 @@ class _HistoryDataState extends State<HistoryData> {
                                                                           .notes!,
                                                                       style: const TextStyle(
                                                                         color: Color(
-                                                                          0xff0878fe,
+                                                                          0xff244D9C,
                                                                         ),
                                                                         fontSize:
                                                                             14,
@@ -734,7 +734,7 @@ class _HistoryDataState extends State<HistoryData> {
                                                               style: TextButton.styleFrom(
                                                                 backgroundColor:
                                                                     const Color(
-                                                                      0xff0878fe,
+                                                                      0xff244D9C,
                                                                     ),
                                                                 foregroundColor:
                                                                     Colors
@@ -789,7 +789,7 @@ class _HistoryDataState extends State<HistoryData> {
                                       Container(
                                         padding: const EdgeInsets.all(8),
                                         decoration: BoxDecoration(
-                                          color: Color(0xff0878fe),
+                                          color: Color(0xff244D9C),
                                           borderRadius: BorderRadius.circular(
                                             6,
                                           ),
@@ -833,7 +833,7 @@ class _HistoryDataState extends State<HistoryData> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 16, color: Color(0xff0878fe)),
+        Icon(icon, size: 16, color: Color(0xff244D9C)),
         const SizedBox(width: 8),
         Expanded(
           child: Column(
@@ -855,7 +855,7 @@ class _HistoryDataState extends State<HistoryData> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xff0878fe),
+                  color: Color(0xff244D9C),
                 ),
               ),
             ],

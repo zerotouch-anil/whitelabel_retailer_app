@@ -405,7 +405,7 @@ class _DialogContentState extends State<_DialogContent> {
           decoration: BoxDecoration(
             color: const Color.fromARGB(255, 224, 221, 221),
             borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: const Color(0xff0878fe), width: 2),
+            border: Border.all(color: const Color(0xff244D9C), width: 2),
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(18),
@@ -439,7 +439,7 @@ class _DialogContentState extends State<_DialogContent> {
                         child: Text(
                           widget.text,
                           style: const TextStyle(
-                            color: Color(0xff0878fe),
+                            color: Color(0xff244D9C),
                             fontSize: 16,
                             height: 1.3,
                             fontWeight: FontWeight.w400,
@@ -484,7 +484,7 @@ class _DialogContentState extends State<_DialogContent> {
                                 child: ElevatedButton(
                                   onPressed: () => Navigator.pop(context, true),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xff0878fe),
+                                    backgroundColor: const Color(0xff244D9C),
                                     padding: const EdgeInsets.symmetric(
                                       vertical: 12,
                                     ),
@@ -554,14 +554,14 @@ class _DialogContentState extends State<_DialogContent> {
             height: 32,
             child: CircularProgressIndicator(
               strokeWidth: 3,
-              valueColor: AlwaysStoppedAnimation<Color>(Color(0xff0878fe)),
+              valueColor: AlwaysStoppedAnimation<Color>(Color(0xff244D9C)),
             ),
           ),
           SizedBox(height: 16),
           Text(
             'Loading preview...',
             style: TextStyle(
-              color: Color(0xff0878fe),
+              color: Color(0xff244D9C),
               fontSize: 14,
               fontWeight: FontWeight.w500,
             ),
@@ -580,12 +580,12 @@ class _DialogContentState extends State<_DialogContent> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.cloud_off_outlined, color: Color(0xff0878fe), size: 48),
+          Icon(Icons.cloud_off_outlined, color: Color(0xff244D9C), size: 48),
           SizedBox(height: 16),
           Text(
             'Preview unavailable',
             style: TextStyle(
-              color: Color(0xff0878fe),
+              color: Color(0xff244D9C),
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),

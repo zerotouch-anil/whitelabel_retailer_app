@@ -63,7 +63,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 type: BottomNavigationBarType.fixed,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                selectedItemColor: const Color(0xff0878fe),
+                selectedItemColor: const Color(0xff244D9C),
                 unselectedItemColor: const Color(0xFF6B7280),
                 selectedFontSize: 10,
                 unselectedFontSize: 9,

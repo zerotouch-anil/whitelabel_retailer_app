@@ -110,7 +110,7 @@ class _RetailerChangePasswordScreenState
       ),
       body: Stack(
         children: [
-          Positioned.fill(child: Container(color: const Color(0xff0878fe))),
+          Positioned.fill(child: Container(color: const Color(0xff244D9C))),
 
           // Foreground content
           SafeArea(
@@ -203,14 +203,14 @@ class _RetailerChangePasswordScreenState
                                     children: const [
                                       Icon(
                                         Icons.save_outlined,
-                                        color: Color(0xff0878fe),
+                                        color: Color(0xff244D9C),
                                       ),
                                       SizedBox(width: 8),
                                       Text(
                                         "Update Password",
                                         style: TextStyle(
                                           fontSize: 16,
-                                          color: Color(0xff0878fe),
+                                          color: Color(0xff244D9C),
                                           fontWeight: FontWeight.w600,
                                         ),
                                       ),
@@ -251,30 +251,30 @@ class _RetailerChangePasswordScreenState
         SizedBox(height: ScreenUtil.unitHeight * 10),
         TextField(
           controller: controller,
-          style: TextStyle(color: Color(0xff0878fe)),
+          style: TextStyle(color: Color(0xff244D9C)),
           obscureText: !isVisible,
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: Color(0xff0878fe)),
-            prefixIcon: Icon(icon, color: Color(0xff0878fe)),
+            hintStyle: TextStyle(color: Color(0xff244D9C)),
+            prefixIcon: Icon(icon, color: Color(0xff244D9C)),
             suffixIcon: IconButton(
               icon: Icon(
                 isVisible ? Icons.visibility : Icons.visibility_off,
-                color: Color(0xff0878fe),
+                color: Color(0xff244D9C),
               ),
               onPressed: onVisibilityToggle,
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xff0878fe)),
+              borderSide: BorderSide(color: Color(0xff244D9C)),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: Color(0xff0878fe)),
+              borderSide: BorderSide(color: Color(0xff244D9C)),
             ),
             focusedBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
-              borderSide: BorderSide(color: Color(0xff0878fe), width: 2),
+              borderSide: BorderSide(color: Color(0xff244D9C), width: 2),
             ),
             filled: true,
             fillColor: Color(0xffffffff),

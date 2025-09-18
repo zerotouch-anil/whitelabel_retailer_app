@@ -283,7 +283,7 @@ class _ThirdPartState extends State<ThirdPart> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Color(0xff0878fe), size: 20),
+          Icon(icon, color: Color(0xff244D9C), size: 20),
           const SizedBox(width: 8),
           Text(
             title,
@@ -307,28 +307,28 @@ class _ThirdPartState extends State<ThirdPart> {
       padding: const EdgeInsets.all(6),
       child: TextFormField(
         controller: controller,
-        style: const TextStyle(color: Color(0xff0878fe)),
+        style: const TextStyle(color: Color(0xff244D9C)),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Color(0xff0878fe)),
+          labelStyle: const TextStyle(color: Color(0xff244D9C)),
           errorText: errorText,
           errorStyle: const TextStyle(color: Colors.red),
           filled: true,
           fillColor: const Color(0xffffffff),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff0878fe)),
+            borderSide: const BorderSide(color: Color(0xff244D9C)),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff0878fe), width: 1.5),
+            borderSide: const BorderSide(color: Color(0xff244D9C), width: 1.5),
             borderRadius: BorderRadius.circular(8),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff0878fe)),
+            borderSide: const BorderSide(color: Color(0xff244D9C)),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff0878fe), width: 1.5),
+            borderSide: const BorderSide(color: Color(0xff244D9C), width: 1.5),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -352,18 +352,18 @@ class _ThirdPartState extends State<ThirdPart> {
             offset: _getRoundedText(text).length,
           ),
         readOnly: true,
-        style: const TextStyle(color: Color(0xff0878fe)),
+        style: const TextStyle(color: Color(0xff244D9C)),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Color(0xff0878fe)),
+          labelStyle: const TextStyle(color: Color(0xff244D9C)),
           filled: true,
           fillColor:  Colors.white,
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff0878fe)),
+            borderSide: const BorderSide(color: Color(0xff244D9C)),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff0878fe), width: 1.5),
+            borderSide: const BorderSide(color: Color(0xff244D9C), width: 1.5),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -398,7 +398,7 @@ class _ThirdPartState extends State<ThirdPart> {
             label,
             style: const TextStyle(
               fontWeight: FontWeight.w500,
-              color: Color(0xff0878fe),
+              color: Color(0xff244D9C),
             ),
           ),
           const SizedBox(height: 8),
@@ -406,7 +406,7 @@ class _ThirdPartState extends State<ThirdPart> {
             width: double.infinity,
             height: 120,
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xff0878fe)),
+              border: Border.all(color: const Color(0xff244D9C)),
               borderRadius: BorderRadius.circular(8),
               color: const Color(0xffffffff),
             ),
@@ -433,7 +433,7 @@ class _ThirdPartState extends State<ThirdPart> {
                                     Text(
                                       'Failed to load image',
                                       style: TextStyle(
-                                        color: Color(0xff0878fe),
+                                        color: Color(0xff244D9C),
                                       ),
                                     ),
                                   ],
@@ -507,12 +507,12 @@ class _ThirdPartState extends State<ThirdPart> {
                             Icon(
                               Icons.add_a_photo,
                               size: 32,
-                              color: Color(0xff0878fe),
+                              color: Color(0xff244D9C),
                             ),
                             SizedBox(height: 8),
                             Text(
                               'Tap to capture image',
-                              style: TextStyle(color: Color(0xff0878fe)),
+                              style: TextStyle(color: Color(0xff244D9C)),
                             ),
                           ],
                         ),
