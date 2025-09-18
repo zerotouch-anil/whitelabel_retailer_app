@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:eWarranty/constants/config.dart';
 import 'package:eWarranty/models/customer_details_model.dart';
 import 'package:eWarranty/services/customer_service.dart';
-import 'package:eWarranty/utils/wooden_container.dart';
 
 class ViewCustomer extends StatefulWidget {
   final String customerId;
@@ -36,17 +35,20 @@ class _ViewCustomerState extends State<ViewCustomer> {
       ),
       body: Stack(
         children: [
-          Positioned.fill(
+           Positioned.fill(
             child: Stack(
               children: [
-                Container(
+                Image.asset(
+                  'assets/bg.png',
+                  fit: BoxFit.cover,
                   width: double.infinity,
                   height: double.infinity,
-                  color: const Color(0xff0878fe),
                 ),
+                Container(color: Colors.black.withOpacity(0.7)),
               ],
             ),
           ),
+         
 
           // Foreground content
           FutureBuilder<ParticularCustomerData>(
@@ -106,8 +108,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
                         const SizedBox(height: 30),
                         _buildProductDetailsSection(customer.productDetails),
                         const SizedBox(height: 30),
-                        _buildProductImagesSection(customer.productImages),
-                        const SizedBox(height: 30),
+                        
                         _buildInvoiceDetailsSection(customer.invoiceDetails),
                         const SizedBox(height: 30),
 
@@ -392,87 +393,6 @@ class _ViewCustomerState extends State<ViewCustomer> {
         ],
       ),
       borderColor: Colors.green[600],
-    );
-  }
-
-  Widget _buildProductImagesSection(ProductImages images) {
-    final List<String> allImages = [
-      if (images.frontImage.isNotEmpty) images.frontImage,
-      if (images.backImage.isNotEmpty) images.backImage,
-      if (images.leftImage.isNotEmpty) images.leftImage,
-      if (images.rightImage.isNotEmpty) images.rightImage,
-      ...images.additionalImages,
-    ];
-
-    return _buildSectionCard(
-      title: 'Product Images',
-      child:
-          allImages.isEmpty
-              ? Text(
-                'No images available',
-                style: TextStyle(
-                  color: Colors.grey[600],
-                  fontStyle: FontStyle.italic,
-                ),
-              )
-              : GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  crossAxisSpacing: 10,
-                  mainAxisSpacing: 10,
-                  childAspectRatio: 1,
-                ),
-                itemCount: allImages.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () => _showImageDialog(allImages[index]),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.grey[300]!),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          baseUrl + allImages[index],
-                          fit: BoxFit.cover,
-                          loadingBuilder: (context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return Container(
-                              color: Colors.grey[100],
-                              child: Center(
-                                child: CircularProgressIndicator(
-                                  value:
-                                      loadingProgress.expectedTotalBytes != null
-                                          ? loadingProgress
-                                                  .cumulativeBytesLoaded /
-                                              loadingProgress
-                                                  .expectedTotalBytes!
-                                          : null,
-                                  strokeWidth: 2,
-                                ),
-                              ),
-                            );
-                          },
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              color: Colors.grey[100],
-                              child: Icon(
-                                Icons.broken_image_outlined,
-                                color: Colors.grey[400],
-                                size: 32,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-      borderColor: Colors.teal[600],
     );
   }
 

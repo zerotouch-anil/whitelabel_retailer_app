@@ -33,12 +33,15 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
       key: _scaffoldKey,
       body: Stack(
         children: [
-          Positioned.fill(child: Container(color: Color(0xff0878fe))),
+          Positioned.fill(
+            child: Image.asset('assets/bg.png', fit: BoxFit.cover),
+          ),
 
           SafeArea(
             child: Column(
               children: [
-                Padding(
+                Container(
+                  color: const Color(0xFF244D9C),
                   padding: const EdgeInsets.only(
                     left: 22,
                     right: 9,
@@ -48,7 +51,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         'Dashboard',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
@@ -59,11 +62,17 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                       Row(
                         children: [
                           IconButton(
-                            icon: Icon(Icons.refresh, color: Color(0xFFFFFFFF)),
+                            icon: const Icon(
+                              Icons.refresh,
+                              color: Color(0xFFFFFFFF),
+                            ),
                             onPressed: _refreshDashboard,
                           ),
                           IconButton(
-                            icon: Icon(Icons.logout, color: Color(0xFFFFFFFF)),
+                            icon: const Icon(
+                              Icons.logout,
+                              color: Color(0xFFFFFFFF),
+                            ),
                             onPressed: () => _showLogoutDialog(context),
                           ),
                         ],
@@ -77,7 +86,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                     future: dashboardData,
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(
                             color: Color(0xFF1565C0),
                           ),
@@ -92,7 +101,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                                 size: 64,
                                 color: Colors.red.shade400,
                               ),
-                              SizedBox(height: 16),
+                              const SizedBox(height: 16),
                               Text(
                                 'Failed loading dashboard',
                                 style: TextStyle(
@@ -101,7 +110,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                                   color: Colors.red.shade700,
                                 ),
                               ),
-                              SizedBox(height: 8),
+                              const SizedBox(height: 8),
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 alignment: Alignment.center,
@@ -120,7 +129,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                       } else if (snapshot.hasData) {
                         return _buildDashboardContent(context, snapshot.data!);
                       } else {
-                        return Center(child: Text('No data available'));
+                        return const Center(child: Text('No data available'));
                       }
                     },
                   ),
@@ -139,29 +148,73 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     final padding = isTablet ? 24.0 : 16.0;
 
     return SingleChildScrollView(
-      padding: EdgeInsets.all(padding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildWalletSection(context, data.walletBalance, isTablet),
-          SizedBox(height: 20),
+          SizedBox(height: 10),
+          Padding(
+            padding: EdgeInsets.all(padding),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    'Add Customer',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
 
-          _buildCategorySection(),
-          SizedBox(height: 20),
+                _buildCategorySection(),
+                SizedBox(height: 20),
 
-          _buildActionButtons(),
-          SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    'Quick Actions',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
 
-          _buildEWarrantyStatsSection(
-            context,
-            data.eWarrantyStats,
-            data.totalCustomersCount,
-            isTablet,
+                SizedBox(height: 8),
+                _buildActionButtons(),
+                SizedBox(height: 20),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 10),
+                  child: Text(
+                    'Statistics',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+
+                _buildEWarrantyStatsSection(
+                  context,
+                  data.eWarrantyStats,
+                  data.totalCustomersCount,
+                  isTablet,
+                ),
+                SizedBox(height: 20),
+
+                _buildRecentCustomersSection(context, data.customers, isTablet),
+              ],
+            ),
           ),
-
-          SizedBox(height: 20),
-
-          _buildRecentCustomersSection(context, data.customers, isTablet),
         ],
       ),
     );
@@ -169,7 +222,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
 
   Widget _buildCategorySection() {
     return Container(
-      height: 380, 
+      height: 380,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -206,10 +259,20 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
       letterSpacing: 0.2,
     );
 
-    Widget _buildStatCard(String title, String value, IconData icon) {
+    Widget _buildStatCard(
+      String title,
+      Color bgColor,
+      Color bgColorTwo,
+      String value,
+      IconData icon,
+    ) {
       return Container(
         decoration: BoxDecoration(
-          color: Color(0xff0878fe), // card background
+          gradient: LinearGradient(
+            colors: [bgColor, bgColorTwo],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ), // card background
           borderRadius: BorderRadius.circular(12), // rounded corners
           boxShadow: [
             BoxShadow(
@@ -258,11 +321,21 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     }
 
     /// Full width card for Total Customers
-    Widget _buildFullWidthCard(String title, String value, IconData icon) {
+    Widget _buildFullWidthCard(
+      String title,
+      Color bgColor,
+      Color bgColorTwo,
+      String value,
+      IconData icon,
+    ) {
       return Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Color(0xff0878fe),
+          gradient: LinearGradient(
+            colors: [bgColor, bgColorTwo],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -313,16 +386,6 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Statistics",
-            style: TextStyle(
-              fontSize: headerFontSize,
-              fontWeight: FontWeight.w700,
-              color: Colors.black,
-              letterSpacing: 0.3,
-            ),
-          ),
-          SizedBox(height: isTablet ? 20 : 16),
           LayoutBuilder(
             builder: (context, constraints) {
               double screenWidth = constraints.maxWidth;
@@ -343,31 +406,43 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                     children: [
                       _buildStatCard(
                         "Total Warranties",
+                        Color(0xffff8347),
+                        Color(0xffffBA77),
                         formatNumber(stats.totalWarranties),
                         Icons.description_outlined,
                       ),
                       _buildStatCard(
                         "Active Warranties",
+                        Color(0xffd65050),
+                        Color(0xfff19090),
                         formatNumber(stats.activeWarranties),
                         Icons.verified_outlined,
                       ),
                       _buildStatCard(
                         "Expired Warranties",
+                        Color(0xff4675CE),
+                        Color(0xff99A8E5),
                         formatNumber(stats.expiredWarranties),
                         Icons.schedule_outlined,
                       ),
                       _buildStatCard(
                         "Claimed Warranties",
+                        Color(0xff2A8B2A),
+                        Color(0xff72c972),
                         formatNumber(stats.claimedWarranties),
                         Icons.task_alt_outlined,
                       ),
                       _buildStatCard(
                         "Premium Collected",
+                        Color(0xffBA9620),
+                        Color(0xffffDE74),
                         formatNumber(stats.totalPremiumCollected),
                         Icons.currency_rupee,
                       ),
                       _buildStatCard(
                         "Last Warranty",
+                        Color(0xffff8347),
+                        Color(0xffffBA77),
                         stats.lastWarrantyDate != null
                             ? "${stats.lastWarrantyDate!.toLocal().day.toString().padLeft(2, '0')}/"
                                 "${stats.lastWarrantyDate!.toLocal().month.toString().padLeft(2, '0')}"
@@ -379,6 +454,8 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                   SizedBox(height: cardSpacing),
                   _buildFullWidthCard(
                     "Total Customers",
+                    Color(0xffd65050),
+                    Color(0xfff19090),
                     formatNumber(totalCustomers),
                     Icons.people_alt_rounded,
                   ),
@@ -407,58 +484,70 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     bool isTablet,
   ) {
     return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
+      decoration: const BoxDecoration(
+        color: Color(0xff244D9C),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(16),
+          bottomRight: Radius.circular(16),
+        ),
       ),
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      padding: EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.green, // green border
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(12), // rounded
-                        color: Colors.white, // background inside the box
-                      ),
-                      child: Icon(
-                        Icons.currency_rupee,
-                        color: Colors.green, // rupee symbol green
-                        size: 20,
-                      ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.white,
                     ),
-                    SizedBox(width: 8),
-                    Text(
-                      _formatAmount(wallet.remainingAmount),
-                      style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xff0878fe), // text black
-                      ),
+                    child: const Icon(
+                      Icons.currency_rupee,
+                      color: Color(0xff244D9C),
+                      size: 20,
                     ),
-                  ],
-                ),
-                Text(
-                  'Wallet Balance',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black, // text black
                   ),
+                  const SizedBox(width: 8),
+                  Text(
+                    _formatAmount(wallet.remainingAmount),
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 6),
+              const Text(
+                'Wallet Balance',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
                 ),
-              ],
+              ),
+            ],
+          ),
+
+          Container(
+            padding: const EdgeInsets.all(6),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.white,
+            ),
+            child: const Icon(
+              Icons.account_balance_wallet,
+              color: Color(0xff244D9C),
+              size: 30,
             ),
           ),
         ],
@@ -479,23 +568,15 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Quick Actions',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black,
-            ),
-          ),
-          SizedBox(height: 16),
           Row(
             children: [
               Expanded(
                 child: _buildActionButton(
                   title: 'View Customers',
                   icon: Icons.people_rounded,
-                  color: Colors.white,
-                  bgColor: Color(0xFFE3F2FD),
+                  color: Color(0xffffffff),
+                  bgColor: Color(0xffFF8347),
+                  iconBgColor: Color(0xFFE3F2FD),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -506,13 +587,14 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                   },
                 ),
               ),
-              SizedBox(width: 18),
+              SizedBox(width: 25),
               Expanded(
                 child: _buildActionButton(
                   title: 'View Claims',
                   icon: Icons.assignment_rounded,
-                  color: Colors.white,
-                  bgColor: Color(0xFFFFF3E0),
+                  color: Color(0xffffffff),
+                  bgColor: Color(0xffBA9620),
+                  iconBgColor: Color(0xFFFFF3E0),
                   onTap: () {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
@@ -535,15 +617,20 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     required IconData icon,
     required Color color,
     required Color bgColor,
+    required Color iconBgColor,
     required VoidCallback onTap,
   }) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: EdgeInsets.symmetric(vertical: 15),
+        padding: EdgeInsets.symmetric(vertical: 30),
         decoration: BoxDecoration(
-          color: Color(0xff0878fe),
-          borderRadius: BorderRadius.circular(8),
+          gradient: LinearGradient(
+            colors: [bgColor, Color(0xffFFBA77)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+          borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withOpacity(0.05),
@@ -557,7 +644,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
             Container(
               padding: EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: bgColor.withAlpha(13),
+                color: iconBgColor.withAlpha(90),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Icon(icon, size: 24, color: color),
@@ -591,17 +678,20 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Recent Customers',
-              style: TextStyle(
-                fontSize: isTablet ? 24 : 20,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFFFFFFFF),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(
+                'Recent Customers',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
         ),
-        SizedBox(height: 16),
+        SizedBox(height: 10),
         if (recentCustomers.isEmpty)
           Container(
             width: double.infinity,
@@ -649,6 +739,10 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     );
   }
 
+  String _formatAmount(int amount) {
+    return NumberFormat('#,##,###').format(amount);
+  }
+
   double _calculateCustomerCardHeight(BuildContext context, Customer customer) {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
@@ -693,8 +787,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     final formattedDate = DateFormat(
       'MMM dd, yyyy • hh:mm a',
     ).format(customer.createdDate.toLocal());
-    final premiumAmount =
-        customer.premiumAmount is int ? customer.premiumAmount as int : 0;
+    print("customercustomer:${customer.actualAmount} ");
 
     return GestureDetector(
       onTap: () {
@@ -726,10 +819,10 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                 Container(
                   padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: Color(0xff0878fe).withAlpha(50),
+                    color: Color(0xff244D9C),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                  child: Icon(Icons.person, size: 20, color: Color(0xFF1565C0)),
+                  child: Icon(Icons.person, size: 20, color: Color(0xFFFFFFFF)),
                 ),
                 SizedBox(width: 12),
                 Expanded(
@@ -743,7 +836,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color(0xff0878fe),
+                          color: Color(0xff244D9C),
                         ),
                       ),
                       SizedBox(height: 2),
@@ -751,7 +844,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                         customer.warrantyKey,
                         style: TextStyle(
                           fontSize: 12,
-                          color: Colors.yellow.shade900,
+                          color: Color(0xff244D9C),
                           fontFamily: 'monospace',
                         ),
                       ),
@@ -768,7 +861,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                     Icons.category,
                     customer.category.isNotEmpty ? customer.category : 'N/A',
                     Colors.blue.shade50,
-                    Colors.blue.shade600,
+                    Colors.white,
                   ),
                 ),
                 SizedBox(width: 8),
@@ -777,7 +870,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                     Icons.devices,
                     customer.modelName.isNotEmpty ? customer.modelName : 'N/A',
                     Colors.orange.shade50,
-                    Colors.blue.shade600,
+                    Colors.white,
                   ),
                 ),
               ],
@@ -787,37 +880,40 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
               children: [
                 Row(
                   children: [
-                    Icon(
-                      Icons.access_time,
-                      size: 14,
-                      color: Colors.grey.shade500,
-                    ),
+                    Icon(Icons.access_time, size: 14, color: Color(0xff244D9C)),
                     SizedBox(width: 4),
                     Text(
                       formattedDate,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey.shade500,
-                      ),
+                      style: TextStyle(fontSize: 12, color: Color(0xff244D9C)),
                     ),
                   ],
                 ),
                 Spacer(), // pushes the amount to the right
-                if (premiumAmount > 0)
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(3),
+                  ),
+
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(3),
+                      color: Color(0xff91E793), // background color
+                      borderRadius: BorderRadius.circular(8), // rounded corners
                     ),
                     child: Text(
-                      '₹${_formatAmount(premiumAmount)}',
+                      '₹${customer.actualAmount}',
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: Colors.green.shade700,
+                        color: Colors.black,
                       ),
                     ),
                   ),
+                ),
               ],
             ),
 
@@ -841,7 +937,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                       style: TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xff0878fe),
+                        color: Color(0xff244D9C),
                       ),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -865,6 +961,7 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 6),
       decoration: BoxDecoration(
+        color: Color(0xff244D9C),
         border: Border.all(color: Colors.green.shade200, width: 0.5),
         borderRadius: BorderRadius.circular(6),
       ),
@@ -889,110 +986,104 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
     );
   }
 
-  String _formatAmount(int amount) {
-    return NumberFormat('#,##,###').format(amount);
-  }
-
   void _refreshDashboard() {
     setState(() {
       dashboardData = fetchRetailerDashboardStats();
     });
   }
-void _showLogoutDialog(BuildContext context) {
-  showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return Dialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        backgroundColor: Colors.white, // White background
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min, // Prevents full height
-            children: [
-              const Text(
-                'Logout',
-                style: TextStyle(
-                  color: Color(0xFF0878fe),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Are you sure you want to logout?',
-                style: TextStyle(
-                  color: Colors.black87,
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () async {
-                      final navigator = Navigator.of(context);
-                      final scaffoldMessenger = ScaffoldMessenger.of(context);
 
-                      // Close the dialog
-                      navigator.pop();
-
-                      // Clear token from SharedPreferences
-                      final prefs = await SharedPreferences.getInstance();
-                      await prefs.remove('token');
-
-                      if (!context.mounted) return;
-
-                      navigator.pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                        (route) => false,
-                      );
-
-                      scaffoldMessenger.showSnackBar(
-                        const SnackBar(
-                          content: Row(
-                            children: [
-                              Icon(Icons.logout, color: Colors.white),
-                              SizedBox(width: 8),
-                              Text('Logged out successfully'),
-                            ],
-                          ),
-                          backgroundColor: Colors.green,
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red.shade600,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    child: const Text('Logout'),
-                  ),
-                ],
-              ),
-            ],
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
           ),
-        ),
-      );
-    },
-  );
-}
+          backgroundColor: Colors.white, // White background
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Prevents full height
+              children: [
+                const Text(
+                  'Logout',
+                  style: TextStyle(
+                    color: Color(0xFF0878fe),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 22,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                const Text(
+                  'Are you sure you want to logout?',
+                  style: TextStyle(color: Colors.black87, fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: const Text(
+                        'Cancel',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        final navigator = Navigator.of(context);
+                        final scaffoldMessenger = ScaffoldMessenger.of(context);
+
+                        // Close the dialog
+                        navigator.pop();
+
+                        // Clear token from SharedPreferences
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.remove('token');
+
+                        if (!context.mounted) return;
+
+                        navigator.pushAndRemoveUntil(
+                          MaterialPageRoute(
+                            builder: (context) => const LoginScreen(),
+                          ),
+                          (route) => false,
+                        );
+
+                        scaffoldMessenger.showSnackBar(
+                          const SnackBar(
+                            content: Row(
+                              children: [
+                                Icon(Icons.logout, color: Colors.white),
+                                SizedBox(width: 8),
+                                Text('Logged out successfully'),
+                              ],
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.red.shade600,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      child: const Text('Logout'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

@@ -182,7 +182,7 @@ class ProductImages {
 }
 
 class WarrantyDetails {
-  final String planId;
+  final String planId; 
   final String planName;
   final int warrantyPeriod;
   final DateTime startDate;

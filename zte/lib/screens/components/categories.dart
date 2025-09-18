@@ -35,7 +35,6 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
     return 3; // Maximum 3 rows
   }
 
-
   int _calculateVisibleColumns(double containerWidth) {
     const double itemWidth = 90.0;
     const double spacing = 12.0;
@@ -55,10 +54,7 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
           return const Center(
             child: Text(
               "No categories available",
-              style: TextStyle(
-                color: Color(0xFFdccf7b),
-                fontSize: 20,
-              ),
+              style: TextStyle(color: Color(0xFF244D9C), fontSize: 20),
             ),
           );
         }
@@ -71,36 +67,7 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    child: Text(
-                      'Add Customer',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFF000000),
-                      ),
-                    ),
-                  ),
-                  Divider(color: Color(0xff0878fe), thickness: 1, height: 16),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 6.0),
-                    child: Text(
-                      'available Categories',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey[500],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              const SizedBox(height: 12),
+              Column(crossAxisAlignment: CrossAxisAlignment.start),
               Expanded(
                 child: LayoutBuilder(
                   builder: (context, constraints) {
@@ -115,7 +82,10 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
                     final screenWidth = constraints.maxWidth;
                     final itemWidth = 85.0;
                     final spacing = 12.0;
-                    final crossAxisCount = ((screenWidth - 24) / (itemWidth + spacing)).floor().clamp(3, 6);
+                    final crossAxisCount = ((screenWidth - 24) /
+                            (itemWidth + spacing))
+                        .floor()
+                        .clamp(3, 6);
 
                     // Only show scrollbar when scrolling is needed
                     if (needsScrolling) {
@@ -128,7 +98,8 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
                         child: Padding(
                           padding: const EdgeInsets.only(right: 12.0),
                           child: GridView.builder(
-                            controller: _scrollController, // Attach controller to GridView
+                            controller:
+                                _scrollController, // Attach controller to GridView
                             scrollDirection: Axis.vertical,
                             physics: const BouncingScrollPhysics(),
                             gridDelegate:
@@ -136,7 +107,8 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
                                   crossAxisCount: crossAxisCount,
                                   crossAxisSpacing: 12,
                                   mainAxisSpacing: 12,
-                                  childAspectRatio: 0.9, // Slightly taller than wide
+                                  childAspectRatio:
+                                      0.9, // Slightly taller than wide
                                 ),
                             itemCount: categories.length,
                             itemBuilder: (context, index) {
@@ -154,13 +126,14 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
                           child: Wrap(
                             spacing: 12,
                             runSpacing: 12,
-                            children: categories.map((category) {
-                              return SizedBox(
-                                width: itemWidth,
-                                height: itemWidth * 1.1, // Slightly taller
-                                child: _buildCategoryItem(category),
-                              );
-                            }).toList(),
+                            children:
+                                categories.map((category) {
+                                  return SizedBox(
+                                    width: itemWidth,
+                                    height: itemWidth * 1.1, // Slightly taller
+                                    child: _buildCategoryItem(category),
+                                  );
+                                }).toList(),
                           ),
                         ),
                       );
@@ -193,9 +166,13 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
       },
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: const Color(0xFFdccf7b), width: 0.6),
-          borderRadius: BorderRadius.circular(7),
-          color: const Color(0xff0878fe),
+          border: Border.all(color: const Color(0xFF00163f), width: 1),
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(8),
+            topRight: Radius.circular(8),
+          ),
+
+          color: const Color(0xff244D9C),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -213,7 +190,7 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
                   print('Image load error for: $baseUrl${category.img}');
                   print('Error: $error');
                   return const Icon(
-                    Icons.broken_image, 
+                    Icons.broken_image,
                     color: Colors.grey,
                     size: 32,
                   );
@@ -223,7 +200,10 @@ class _CategoriesComponentState extends State<CategoriesComponent> {
             const SizedBox(height: 8),
             // Fixed padding and text styling
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+              padding: const EdgeInsets.symmetric(
+                horizontal: 8.0,
+                vertical: 4.0,
+              ),
               child: Text(
                 category.categoryName,
                 style: const TextStyle(

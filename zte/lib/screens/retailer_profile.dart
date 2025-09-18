@@ -24,46 +24,65 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Color.fromARGB(255, 19, 19, 19),
-      appBar: AppBar(
-        title: const Text(
-          "Retailer Profile",
-          style: TextStyle(fontWeight: FontWeight.w600, color: Colors.white),
-        ),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Colors.white,
-        elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
-        actions: [
-          Container(
-            margin: const EdgeInsets.only(right: 8),
-            child: IconButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => RetailerChangePasswordScreen(),
-                  ),
-                );
-              },
-              icon: const Icon(Icons.edit, color: Colors.white, size: 24),
-              tooltip: 'Edit Profile',
-              style: IconButton.styleFrom(
-                backgroundColor: const Color.fromARGB(
-                  255,
-                  11,
-                  91,
-                  189,
-                ).withAlpha(40),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          ),
+          child: AppBar(
+            title: const Text(
+              "Retailer Profile",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+                color: Color(0xFFFFFFFF),
               ),
             ),
+            backgroundColor: const Color(0xff244D9C),
+            foregroundColor: Colors.white,
+            elevation: 0,
+            iconTheme: const IconThemeData(color: Colors.white),
+            actions: [
+              Container(
+                margin: const EdgeInsets.only(right: 8),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => RetailerChangePasswordScreen(),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.edit, color: Colors.white, size: 24),
+                  tooltip: 'Edit Profile',
+                  style: IconButton.styleFrom(
+                    backgroundColor: const Color.fromARGB(
+                      255,
+                      11,
+                      91,
+                      189,
+                    ).withAlpha(40),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
+
       body: Container(
-        color: Color(0xff0878fe),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -172,54 +191,53 @@ class _RetailerProfileScreenState extends State<RetailerProfileScreen> {
   }
 
   Widget _buildProfileHeaderCard(RetailerProfile profile) {
-    return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(6),
-          color: Colors.white
-        ),
-        child: Column(
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: Colors.blueAccent.withOpacity(0.1),
-                shape: BoxShape.circle,
-              ),
-              child: const Icon(Icons.person, size: 40, color: Color(0xff0878fe)),
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.1), 
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 100,
+            height: 100,
+            decoration: BoxDecoration(
+              color: Colors.white, 
+              borderRadius: BorderRadius.circular(8),
             ),
-            const SizedBox(height: 16),
-            Text(
-              profile.name.isNotEmpty ? profile.name : 'No Name',
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xff0878fe),
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.blueAccent.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Text(
-                profile.userType.isNotEmpty ? profile.userType : 'Retailer',
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
+            child: const Icon(Icons.person, size: 40, color: Color(0xff244D9C)),
+          ),
+          const SizedBox(width: 12),
+
+          // Right side content
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  profile.name.isNotEmpty ? profile.name : 'NAME OF SHOP',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
-              ),
+                const SizedBox(height: 4),
+                Text(
+                  profile.userType.isNotEmpty
+                      ? profile.userType
+                      : 'Retailer name',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white70,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -3,7 +3,6 @@ import 'package:eWarranty/models/brands_model.dart';
 import 'package:eWarranty/models/categories_model.dart';
 import 'package:intl/intl.dart';
 import 'package:eWarranty/utils/shared_preferences.dart';
-import 'package:eWarranty/utils/wooden_container.dart';
 
 class FirstPart extends StatefulWidget {
   final Map<String, dynamic> formData;
@@ -94,6 +93,8 @@ class _FirstPartState extends State<FirstPart> {
             const SizedBox(height: 15),
             _buildBrandDropdown(),
             if (_showOtherBrandField) _buildOtherBrandField(),
+            Text("Enter the invoice amount for this product", style: TextStyle(color: Color.fromARGB(255, 136, 133, 133))),
+            const SizedBox(height: 5),
             _buildPurchasePriceField(),
             _buildOriginalWarrantyDropdown(),
             _buildDatePicker(),

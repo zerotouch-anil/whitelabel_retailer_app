@@ -87,6 +87,7 @@ class Customer {
   final String modelName;
   final int warrantyPeriod;
   final dynamic premiumAmount;
+  final String actualAmount;
   final DateTime createdDate;
   final String warrantyKey;
   final String category;
@@ -99,6 +100,7 @@ class Customer {
     required this.modelName,
     required this.warrantyPeriod,
     required this.premiumAmount,
+    required this.actualAmount,
     required this.createdDate,
     required this.warrantyKey,
     required this.category,
@@ -113,6 +115,7 @@ class Customer {
       modelName: json['modelName'] ?? '',
       warrantyPeriod: json['warrantyPeriod'] ?? '',
       premiumAmount: json['premiumAmount'],
+      actualAmount: json['actualAmount']?.toString() ?? '',
       createdDate: DateTime.parse(json['createdDate']),
       warrantyKey: json['warrantyKey'] ?? '',
       category: json['category'] ?? '',

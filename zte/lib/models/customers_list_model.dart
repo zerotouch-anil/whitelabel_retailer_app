@@ -3,6 +3,7 @@ class CustomersData {
   final String modelName;
   final String planId;
   final int premiumAmount; 
+  final String actualAmount;
   final String warrantyKey;
   final String customerId;
   final DateTime createdDate;
@@ -16,6 +17,7 @@ class CustomersData {
     required this.modelName,
     required this.planId,
     required this.premiumAmount,
+    required this.actualAmount,
     required this.warrantyKey,
     required this.customerId,
     required this.createdDate,
@@ -37,6 +39,8 @@ class CustomersData {
           : premium is double
               ? premium.round()
               : 0,
+      actualAmount: json['actualAmount']?.toString() ?? '',
+
       warrantyKey: json['warrantyKey'] ?? '',
       customerId: json['customerId']?.toString() ?? '',
       createdDate: DateTime.parse(json['dates']['createdDate']),

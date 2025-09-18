@@ -16,6 +16,7 @@ Future<DashboardData> fetchRetailerDashboardStats() async {
     final response = await http.get(url, headers: headers);
     if (response.statusCode == 200 || response.statusCode == 201) {
       final jsonData = jsonDecode(response.body);
+ printWrapped("jsonDataDAA: $jsonData");
 
       if (jsonData['walletBalance'] != null &&
           jsonData['walletBalance']['remainingAmount'] != null) {
@@ -32,5 +33,12 @@ Future<DashboardData> fetchRetailerDashboardStats() async {
   } catch (e) {
     print('Error fetching dashboard data: $e');
     rethrow;
+  }
+}
+
+void printWrapped(String text) {
+  final pattern = RegExp('.{1,800}'); // 800 chars per chunk
+  for (final match in pattern.allMatches(text)) {
+    print(match.group(0));
   }
 }

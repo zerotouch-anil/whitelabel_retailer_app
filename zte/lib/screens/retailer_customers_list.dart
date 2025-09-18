@@ -191,18 +191,36 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
       extendBodyBehindAppBar: true, // Allows AppBar to sit above background
       appBar: AppBar(
         foregroundColor: Color(0xFFffffff),
-        backgroundColor: Colors.transparent,
+        backgroundColor: Color(0xff244D9C),
         title: const Text(
           'Customer List',
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         elevation: 0,
+          shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
         
       ),
       
       body: Stack(
         children: [
-          Positioned.fill(child: Container(color: Color(0xff0878fe))),
+          Positioned.fill(
+            child: Stack(
+              children: [
+                Image.asset(
+                  'assets/bg.png',
+                  fit: BoxFit.cover,
+                  width: double.infinity,
+                  height: double.infinity,
+                ),
+                
+              ],
+            ),
+          ),
           // Your main content
           SafeArea(
             child: Column(
@@ -273,7 +291,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                                   decoration: InputDecoration(
                                     hintText: 'Search...',
                                     hintStyle: const TextStyle(
-                                      color: Color(0xff0878fe),
+                                      color: Color(0xff244D9C),
                                     ),
                                     filled: true,
                                     fillColor: const Color(0xFFffffff),
@@ -361,7 +379,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
       labelStyle: const TextStyle(color: Colors.white),
       prefixIcon: const Icon(Icons.calendar_today, color: Color(0xffffffff)),
       filled: true,
-      fillColor: Colors.blue,
+      fillColor: Color(0xff244D9C),
       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
@@ -382,7 +400,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
     if (_isLoading && _allCustomers.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1976D2)),
+          valueColor: AlwaysStoppedAnimation<Color>(Color(0xff244D9C)),
         ),
       );
     }
@@ -456,7 +474,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
             padding: EdgeInsets.all(16.0),
             child: Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF1976D2)),
+                valueColor: AlwaysStoppedAnimation<Color>(Color(0xff244D9C)),
               ),
             ),
           );
@@ -507,12 +525,12 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                           width: screenWidth * 0.12,
                           height: screenWidth * 0.12,
                           decoration: BoxDecoration(
-                            color: const Color(0xFF1976D2).withOpacity(0.1),
+                            color: const Color(0xff244D9C).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: const Icon(
                             Icons.person,
-                            color: Color(0xFF1976D2),
+                            color: Color(0xff244D9C),
                             size: 24,
                           ),
                         ),
@@ -526,7 +544,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                                 style: TextStyle(
                                   fontSize: screenWidth * 0.042,
                                   fontWeight: FontWeight.w700,
-                                  color: const Color(0xff0878fe),
+                                  color: const Color(0xff244D9C),
                                 ),
                               ),
                               const SizedBox(height: 4),
@@ -655,7 +673,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '₹${customer.premiumAmount}',
+                              '₹${customer.actualAmount}',
                               style: TextStyle(
                                 fontSize: screenWidth * 0.045,
                                 fontWeight: FontWeight.w700,
@@ -680,7 +698,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.blue,
+                        color: Color(0xff244D9C),
                         borderRadius: BorderRadius.circular(8),
                         border: Border.all(color: Colors.grey[200]!, width: 1),
                       ),

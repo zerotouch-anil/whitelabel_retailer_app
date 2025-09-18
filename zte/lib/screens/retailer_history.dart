@@ -227,13 +227,25 @@ class _HistoryDataState extends State<HistoryData> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Transaction History'),
-        backgroundColor: Colors.transparent,
-        foregroundColor: Color(0xFFffffff),
+        title: const Text('Transaction History',  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+        backgroundColor: const Color(0xff244D9C),
+        foregroundColor: const Color(0xFFFFFFFF),
         elevation: 0,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
       ),
+
       body: Container(
-        color: Color(0xff0878fe),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/bg.png'),
+            fit: BoxFit.cover,
+          ),
+        ),
         child: Column(
           children: [
             SizedBox(
