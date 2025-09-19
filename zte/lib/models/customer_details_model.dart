@@ -2,7 +2,7 @@ class ParticularCustomerData {
   final CustomerDetails customerDetails;
   final ProductDetails productDetails;
   final InvoiceDetails invoiceDetails;
-  final ProductImages productImages;
+  // final ProductImages productImages;
   final WarrantyDetails warrantyDetails;
   final CustomerDates dates;
   final String id;
@@ -18,7 +18,7 @@ class ParticularCustomerData {
     required this.customerDetails,
     required this.productDetails,
     required this.invoiceDetails,
-    required this.productImages,
+    // required this.productImages,
     required this.warrantyDetails,
     required this.dates,
     required this.id,
@@ -36,7 +36,7 @@ class ParticularCustomerData {
       customerDetails: CustomerDetails.fromJson(json['customerDetails']),
       productDetails: ProductDetails.fromJson(json['productDetails']),
       invoiceDetails: InvoiceDetails.fromJson(json['invoiceDetails']),
-      productImages: ProductImages.fromJson(json['productImages']),
+      // productImages: ProductImages.fromJson(json['productImages']),
       warrantyDetails: WarrantyDetails.fromJson(json['warrantyDetails']),
       dates: CustomerDates.fromJson(json['dates']),
       id: json['_id'] ?? '',
@@ -155,41 +155,41 @@ class InvoiceDetails {
   }
 }
 
-class ProductImages {
-  final String frontImage;
-  final String backImage;
-  final String leftImage;
-  final String rightImage;
-  final List<String> additionalImages;
+// class ProductImages {
+//   final String frontImage;
+//   final String backImage;
+//   final String leftImage;
+//   final String rightImage;
+//   final List<String> additionalImages;
 
-  ProductImages({
-    required this.frontImage,
-    required this.backImage,
-    required this.leftImage,
-    required this.rightImage,
-    required this.additionalImages,
-  });
+//   ProductImages({
+//     required this.frontImage,
+//     required this.backImage,
+//     required this.leftImage,
+//     required this.rightImage,
+//     required this.additionalImages,
+//   });
 
-  factory ProductImages.fromJson(Map<String, dynamic> json) {
-    return ProductImages(
-      frontImage: json['frontImage'] ?? '',
-      backImage: json['backImage'] ?? '',
-      leftImage: json['leftImage'] ?? '',
-      rightImage: json['rightImage'] ?? '',
-      additionalImages: List<String>.from(json['additionalImages'] ?? []),
-    );
-  }
-}
+//   factory ProductImages.fromJson(Map<String, dynamic> json) {
+//     return ProductImages(
+//       frontImage: json['frontImage'] ?? '',
+//       backImage: json['backImage'] ?? '',
+//       leftImage: json['leftImage'] ?? '',
+//       rightImage: json['rightImage'] ?? '',
+//       additionalImages: List<String>.from(json['additionalImages'] ?? []),
+//     );
+//   }
+// }
 
 class WarrantyDetails {
-  final String planId; 
+  final String planId;
   final String planName;
   final int warrantyPeriod;
   final DateTime startDate;
   final DateTime expiryDate;
-  final int premiumAmount; // Will always be int after rounding
-  final String actualAmount;
-  final String actualPercent;
+  final int premiumAmount;
+  final int actualAmount;
+  final int actualPercent;
 
   WarrantyDetails({
     required this.planId,
@@ -203,6 +203,10 @@ class WarrantyDetails {
   });
 
   factory WarrantyDetails.fromJson(Map<String, dynamic> json) {
+    final premium = json['premiumAmount'];
+    final actualAmnt = json['actualAmount'];
+    final actualPer = json['actualPercent'];
+
     return WarrantyDetails(
       planId: json['planId']?.toString() ?? '',
       planName: json['planName']?.toString() ?? '',
@@ -210,14 +214,32 @@ class WarrantyDetails {
           json['warrantyPeriod'] is int
               ? json['warrantyPeriod']
               : int.tryParse(json['warrantyPeriod'].toString()) ?? 0,
-      startDate: DateTime.parse(json['startDate']),
-      expiryDate: DateTime.parse(json['expiryDate']),
+      startDate:
+          json['startDate'] != null
+              ? DateTime.parse(json['startDate'])
+              : DateTime.now(),
+      expiryDate:
+          json['expiryDate'] != null
+              ? DateTime.parse(json['expiryDate'])
+              : DateTime.now(),
       premiumAmount:
-          (json['premiumAmount'] is num)
-              ? (json['premiumAmount'] as num).round()
+          premium is int
+              ? premium
+              : premium is double
+              ? premium.round()
               : 0,
-      actualAmount: json['actualAmount']?.toString() ?? '',
-      actualPercent: json['actualPercent']?.toString() ?? '',
+      actualAmount:
+          actualAmnt is int
+              ? actualAmnt
+              : actualAmnt is double
+              ? actualAmnt.round()
+              : 0,
+      actualPercent:
+          actualPer is int
+              ? actualPer
+              : actualPer is double
+              ? actualPer.round()
+              : 0,
     );
   }
 }

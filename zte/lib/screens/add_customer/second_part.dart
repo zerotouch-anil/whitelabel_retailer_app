@@ -275,20 +275,20 @@ class _SecondPartState extends State<SecondPart> {
         readOnly: readOnly,
         keyboardType: inputType,
         inputFormatters: _getInputFormatters(key),
-        style: const TextStyle(color: Color(0xff244D9C)),
+        style: const TextStyle(color: Color(0xffffffff)),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Color(0xff244D9C)),
+          labelStyle: const TextStyle(color: Color(0xffffffff)),
           errorText: _fieldErrors[key],
-          errorStyle: const TextStyle(color: Colors.red),
+          errorStyle: const TextStyle(color: Color.fromARGB(255, 39, 13, 11)),
           filled: true,
-          fillColor: const Color(0xffffffff),
+          fillColor: const Color(0xFF244D9C),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(
               color:
                   _fieldErrors[key] != null
                       ? Colors.red
-                      : const Color(0xff244D9C),
+                      : const Color(0xffffffff),
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -297,7 +297,7 @@ class _SecondPartState extends State<SecondPart> {
               color:
                   _fieldErrors[key] != null
                       ? Colors.red
-                      : const Color(0xff244D9C),
+                      : const Color(0xffffffff),
               width: 1.5,
             ),
             borderRadius: BorderRadius.circular(8),
@@ -343,7 +343,7 @@ class _SecondPartState extends State<SecondPart> {
         padding: EdgeInsets.symmetric(vertical: 16),
         child: Center(
           child: CircularProgressIndicator(
-            valueColor: AlwaysStoppedAnimation<Color>(Color(0xff244D9C)),
+            valueColor: AlwaysStoppedAnimation<Color>(Color(0xffffffff)),
           ),
         ),
       );
@@ -391,7 +391,7 @@ class _SecondPartState extends State<SecondPart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Color(0xFF244D9C),
       child: Column(
         children: [
           // Form content
@@ -444,9 +444,9 @@ class _SecondPartState extends State<SecondPart> {
                     child: OutlinedButton(
                       onPressed: widget.onPrevious,
                       style: OutlinedButton.styleFrom(
-                        foregroundColor: const Color.fromARGB(255, 49, 48, 43),
+                        foregroundColor: Colors.white,
                         side: const BorderSide(
-                          color: Color.fromARGB(255, 75, 74, 70),
+                          color: Color.fromARGB(255, 197, 196, 194),
                         ),
                         padding: const EdgeInsets.symmetric(vertical: 15),
                       ),
@@ -462,8 +462,10 @@ class _SecondPartState extends State<SecondPart> {
                     child: ElevatedButton(
                       onPressed: _handleNextButtonClick,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.blue[900]!,
-                        foregroundColor: Colors.white,
+                        backgroundColor: Color(0xffC3B900),
+                        foregroundColor: Colors.black,
+                        disabledBackgroundColor: Colors.grey,
+                        disabledForegroundColor: Colors.white,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                       ),
                       child: const Text('Next'),

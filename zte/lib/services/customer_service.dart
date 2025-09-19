@@ -55,8 +55,6 @@ Future<List<WarrantyPlans>> fetchWarrantyPlans() async {
   }
 }
 
-
-
 Future<CustomerListResponse> fetchAllCustomers(filter) async {
   final url = Uri.parse('${baseUrl}api/customers/all');
 
@@ -70,6 +68,7 @@ Future<CustomerListResponse> fetchAllCustomers(filter) async {
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
+      print("jsonDaTTT: $jsonData");
       return CustomerListResponse.fromJson(jsonData);
     } else {
       throw Exception(
@@ -95,13 +94,14 @@ Future<ParticularCustomerData> fetchCustomerDetails(String customerId) async {
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
+      print("jsonDataY $jsonData");
       final customer = ParticularCustomerData.fromJson(
         jsonData['data']['customer'],
       );
       return customer;
     } else {
       throw Exception(
-        'Failed to fetch customer. Status: ${response.statusCode}',
+        'Failed to fetch customer Status: ${response.statusCode}',
       );
     }
   } catch (e) {

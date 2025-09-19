@@ -114,11 +114,11 @@ class _ThirdPartState extends State<ThirdPart> {
         serialNumber.isNotEmpty &&
         invoiceNumber != null &&
         invoiceNumber.isNotEmpty &&
-        widget.formData['invoice']['invoiceImage'] != null &&
-        widget.formData['images']['frontImage'] != null &&
-        widget.formData['images']['backImage'] != null &&
-        widget.formData['images']['rightImage'] != null &&
-        widget.formData['images']['leftImage'] != null;
+        widget.formData['invoice']['invoiceImage'] != null;
+        // widget.formData['images']['frontImage'] != null &&
+        // widget.formData['images']['backImage'] != null &&
+        // widget.formData['images']['rightImage'] != null &&
+        // widget.formData['images']['leftImage'] != null;
 
     return isComplete;
   }
@@ -131,7 +131,7 @@ class _ThirdPartState extends State<ThirdPart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffffffff),
+      backgroundColor: const Color(0xFF244D9C),
       resizeToAvoidBottomInset: true,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -178,32 +178,32 @@ class _ThirdPartState extends State<ThirdPart> {
               ),
               const SizedBox(height: 25),
 
-              _buildSectionHeader(Icons.shopping_bag, "Product Images"),
-              _divider(),
-              const SizedBox(height: 16),
+              // _buildSectionHeader(Icons.shopping_bag, "Product Images"),
+              // _divider(),
+              // const SizedBox(height: 16),
 
-              _buildImageBox(
-                "frontImage",
-                "Front side product image",
-                widget.formData['images'],
-              ),
-              _buildImageBox(
-                "backImage",
-                "Back side product image",
-                widget.formData['images'],
-              ),
-              _buildImageBox(
-                "rightImage",
-                "Right side product image",
-                widget.formData['images'],
-              ),
-              _buildImageBox(
-                "leftImage",
-                "Left side product image",
-                widget.formData['images'],
-              ),
+              // _buildImageBox(
+              //   "frontImage",
+              //   "Front side product image",
+              //   widget.formData['images'],
+              // ),
+              // _buildImageBox(
+              //   "backImage",
+              //   "Back side product image",
+              //   widget.formData['images'],
+              // ),
+              // _buildImageBox(
+              //   "rightImage",
+              //   "Right side product image",
+              //   widget.formData['images'],
+              // ),
+              // _buildImageBox(
+              //   "leftImage",
+              //   "Left side product image",
+              //   widget.formData['images'],
+              // ),
 
-              const SizedBox(height: 18),
+              // const SizedBox(height: 18),
               _buildSectionHeader(Icons.security, "Warranty Details"),
               _divider(),
               const SizedBox(height: 16),
@@ -238,11 +238,11 @@ class _ThirdPartState extends State<ThirdPart> {
                   style: OutlinedButton.styleFrom(
                     foregroundColor: const Color.fromARGB(255, 49, 48, 43),
                     side: const BorderSide(
-                      color: Color.fromARGB(255, 75, 74, 70),
+                      color: Color.fromARGB(255, 226, 226, 225),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 15),
                   ),
-                  child: const Text('Previous'),
+                  child: const Text('Previous', style: TextStyle(color: Colors.white),),
                 ),
               ),
               const SizedBox(width: 16),
@@ -255,6 +255,8 @@ class _ThirdPartState extends State<ThirdPart> {
                         _isFormFirstComplete() ? Colors.green[800] : Colors.grey,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
+                               disabledBackgroundColor: Colors.grey,
+                    disabledForegroundColor: Colors.white,
                   ),
                   child: const Text('Submit'),
                 ),
@@ -271,7 +273,7 @@ class _ThirdPartState extends State<ThirdPart> {
       padding: const EdgeInsets.all(8),
       child: Container(
         height: 1,
-        color: const Color.fromARGB(255, 126, 124, 115),
+        color:  Colors.yellow,
         width: double.infinity,
       ),
     );
@@ -283,13 +285,13 @@ class _ThirdPartState extends State<ThirdPart> {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Color(0xff244D9C), size: 20),
+          Icon(icon, color: Colors.white, size: 20),
           const SizedBox(width: 8),
           Text(
             title,
             style: const TextStyle(
               fontWeight: FontWeight.w500,
-              color: Colors.black,
+              color: Colors.white,
             ),
           ),
         ],
@@ -307,28 +309,28 @@ class _ThirdPartState extends State<ThirdPart> {
       padding: const EdgeInsets.all(6),
       child: TextFormField(
         controller: controller,
-        style: const TextStyle(color: Color(0xff244D9C)),
+        style: const TextStyle(color: Color(0xffffffff)),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Color(0xff244D9C)),
+          labelStyle: const TextStyle(color: Color(0xffffffff)),
           errorText: errorText,
           errorStyle: const TextStyle(color: Colors.red),
           filled: true,
-          fillColor: const Color(0xffffffff),
+          fillColor: const Color(0xFF244D9C),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff244D9C)),
+            borderSide: const BorderSide(color: Color(0xffffffff)),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff244D9C), width: 1.5),
+            borderSide: const BorderSide(color: Color(0xffffffff), width: 1.5),
             borderRadius: BorderRadius.circular(8),
           ),
           errorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff244D9C)),
+            borderSide: const BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedErrorBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff244D9C), width: 1.5),
+            borderSide: const BorderSide(color: Colors.red, width: 1.5),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -352,18 +354,18 @@ class _ThirdPartState extends State<ThirdPart> {
             offset: _getRoundedText(text).length,
           ),
         readOnly: true,
-        style: const TextStyle(color: Color(0xff244D9C)),
+        style: const TextStyle(color: Color(0xffffffff)),
         decoration: InputDecoration(
           labelText: label,
-          labelStyle: const TextStyle(color: Color(0xff244D9C)),
+          labelStyle: const TextStyle(color: Color(0xffffffff)),
           filled: true,
-          fillColor:  Colors.white,
+          fillColor:  Color(0xFF244D9C),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff244D9C)),
+            borderSide: const BorderSide(color: Color(0xffffffff)),
             borderRadius: BorderRadius.circular(8),
           ),
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Color(0xff244D9C), width: 1.5),
+            borderSide: const BorderSide(color: Colors.red, width: 1.5),
             borderRadius: BorderRadius.circular(8),
           ),
         ),
@@ -398,7 +400,7 @@ class _ThirdPartState extends State<ThirdPart> {
             label,
             style: const TextStyle(
               fontWeight: FontWeight.w500,
-              color: Color(0xff244D9C),
+              color: Color(0xffffffff),
             ),
           ),
           const SizedBox(height: 8),
@@ -406,7 +408,7 @@ class _ThirdPartState extends State<ThirdPart> {
             width: double.infinity,
             height: 120,
             decoration: BoxDecoration(
-              border: Border.all(color: const Color(0xff244D9C)),
+              border: Border.all(color: const Color(0xffffffff)),
               borderRadius: BorderRadius.circular(8),
               color: const Color(0xffffffff),
             ),

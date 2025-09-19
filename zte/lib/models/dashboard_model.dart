@@ -43,6 +43,7 @@ class WalletBalance {
     );
   }
 }
+
 class EWarrantyStats {
   final int totalWarranties;
   final int activeWarranties;
@@ -68,26 +69,28 @@ class EWarrantyStats {
       activeWarranties: json['activeWarranties'] ?? 0,
       expiredWarranties: json['expiredWarranties'] ?? 0,
       claimedWarranties: json['claimedWarranties'] ?? 0,
-      totalPremiumCollected: totalPremium is int
-          ? totalPremium
-          : totalPremium is double
+      totalPremiumCollected:
+          totalPremium is int
+              ? totalPremium
+              : totalPremium is double
               ? totalPremium.round()
               : 0,
-      lastWarrantyDate: json['lastWarrantyDate'] != null
-          ? DateTime.tryParse(json['lastWarrantyDate'])
-          : null,
+      lastWarrantyDate:
+          json['lastWarrantyDate'] != null
+              ? DateTime.tryParse(json['lastWarrantyDate'])
+              : null,
     );
   }
 }
-
 
 class Customer {
   final String customerId;
   final String customerName;
   final String modelName;
   final int warrantyPeriod;
-  final dynamic premiumAmount;
-  final String actualAmount;
+  final int premiumAmount;
+  final int actualAmount;
+  final int actualPercent;
   final DateTime createdDate;
   final String warrantyKey;
   final String category;
@@ -101,6 +104,7 @@ class Customer {
     required this.warrantyPeriod,
     required this.premiumAmount,
     required this.actualAmount,
+    required this.actualPercent,
     required this.createdDate,
     required this.warrantyKey,
     required this.category,
@@ -109,13 +113,33 @@ class Customer {
   });
 
   factory Customer.fromJson(Map<String, dynamic> json) {
+    final premium = json['premiumAmount'];
+    final actualAmnt = json['actualAmount'];
+    final actualPer = json['actualPercent'];
+
     return Customer(
       customerId: json['customerId'] ?? '',
       customerName: json['customerName'] ?? '',
       modelName: json['modelName'] ?? '',
       warrantyPeriod: json['warrantyPeriod'] ?? '',
-      premiumAmount: json['premiumAmount'],
-      actualAmount: json['actualAmount']?.toString() ?? '',
+      premiumAmount:
+          premium is int
+              ? premium
+              : premium is double
+              ? premium.round()
+              : 0,
+      actualAmount:
+          actualAmnt is int
+              ? actualAmnt
+              : actualAmnt is double
+              ? actualAmnt.round()
+              : 0,
+      actualPercent:
+          actualPer is int
+              ? actualPer
+              : actualPer is double
+              ? actualPer.round()
+              : 0,
       createdDate: DateTime.parse(json['createdDate']),
       warrantyKey: json['warrantyKey'] ?? '',
       category: json['category'] ?? '',

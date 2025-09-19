@@ -227,7 +227,10 @@ class _HistoryDataState extends State<HistoryData> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: const Text('Transaction History',  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
+        title: const Text(
+          'Transaction History',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
         backgroundColor: const Color(0xff244D9C),
         foregroundColor: const Color(0xFFFFFFFF),
         elevation: 0,
@@ -256,6 +259,50 @@ class _HistoryDataState extends State<HistoryData> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          height: 45,
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xFFffffff)),
+                            borderRadius: BorderRadius.circular(8),
+                            color: Color(0xff244D9C),
+                          ),
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton<String>(
+                              value: _selectedTransactionType,
+                              onChanged: _onTransactionTypeChanged,
+                              isExpanded: true,
+                              items:
+                                  _transactionTypes.map((String option) {
+                                    return DropdownMenuItem<String>(
+                                      value: option,
+                                      child: Text(
+                                        _getDisplayText(
+                                          option,
+                                        ), 
+                                        style: TextStyle(
+                                          color:
+                                              option == 'ALL'
+                                                  ? Colors.black
+                                                  : _getTransactionTypeColor(
+                                                    option,
+                                                  ),
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
                   Row(
                     children: [
                       Expanded(
@@ -370,64 +417,6 @@ class _HistoryDataState extends State<HistoryData> {
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 16),
-
-                  // Transaction Type Filter Row
-                  Row(
-                    children: [
-                      const Icon(Icons.filter_list, color: Color(0xFFffffff)),
-                      const SizedBox(width: 8),
-                      const Text(
-                        'Filter by ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
-                          color: Color(0xFFffffff),
-                        ),
-                      ),
-
-                      const SizedBox(width: 16),
-                      Expanded(
-                        child: Container(
-                          height: 38,
-                          padding: const EdgeInsets.symmetric(horizontal: 12),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xFFffffff)),
-                            borderRadius: BorderRadius.circular(8),
-                            color: Color(0xff244D9C),
-                          ),
-                          child: DropdownButtonHideUnderline(
-                            child: DropdownButton<String>(
-                              value: _selectedTransactionType,
-                              onChanged: _onTransactionTypeChanged,
-                              isExpanded: true,
-                              items:
-                                  _transactionTypes.map((String option) {
-                                    return DropdownMenuItem<String>(
-                                      value: option,
-                                      child: Text(
-                                        _getDisplayText(
-                                          option,
-                                        ), // 👈 show mapped text
-                                        style: TextStyle(
-                                          color:
-                                              option == 'ALL'
-                                                  ? Colors.black
-                                                  : _getTransactionTypeColor(
-                                                    option,
-                                                  ),
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                 ],
               ),
             ),
@@ -503,317 +492,534 @@ class _HistoryDataState extends State<HistoryData> {
                             final history = _allHistoryData[index];
                             return Padding(
                               padding: const EdgeInsets.only(bottom: 16),
-                              child: Card(
-                                elevation: 4,
-                                color: const Color(0xFFffffff),
-
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF2E5BBA),
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 1.5,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.1),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
+                                ),
                                 child: Padding(
-                                  padding: const EdgeInsets.all(16),
+                                  padding: const EdgeInsets.all(20),
                                   child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      // Header Row
                                       Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
                                         children: [
+                                          Container(
+                                            padding: const EdgeInsets.all(6),
+                                            decoration: BoxDecoration(
+                                              color: Colors.white.withOpacity(
+                                                0.2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Icon(
+                                              Icons.calendar_today,
+                                              size: 16,
+                                              color: Colors.white.withOpacity(
+                                                0.8,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'DATE',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white
+                                                      .withOpacity(0.7),
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.5,
+                                                ),
+                                              ),
+                                              Text(
+                                                _formatDate(
+                                                  history.transactionDate,
+                                                ).split(
+                                                  ' ',
+                                                )[0], // Just date part
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                'TIME',
+                                                style: TextStyle(
+                                                  fontSize: 10,
+                                                  color: Colors.white
+                                                      .withOpacity(0.7),
+                                                  fontWeight: FontWeight.w500,
+                                                  letterSpacing: 0.5,
+                                                ),
+                                              ),
+                                              Text(
+                                                _formatDate(
+                                                      history.transactionDate,
+                                                    ).split(' ')[1] ??
+                                                    '00:00', // Time part
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const Spacer(),
                                           Container(
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 12,
                                               vertical: 6,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: _getTransactionTypeColor(
-                                                history.transactionType,
-                                              ).withOpacity(0.1),
+                                              color:
+                                                  history.transactionType ==
+                                                          "WARRANTY_USAGE"
+                                                      ? Colors.white
+                                                          .withOpacity(0.9)
+                                                      : history
+                                                              .transactionType ==
+                                                          "ALLOCATION"
+                                                      ? Colors.white
+                                                          .withOpacity(0.9)
+                                                      : Colors.grey.withOpacity(
+                                                        0.9,
+                                                      ),
                                               borderRadius:
                                                   BorderRadius.circular(20),
                                               border: Border.all(
-                                                color: _getTransactionTypeColor(
-                                                  history.transactionType,
-                                                ),
+                                                color:
+                                                    history.transactionType ==
+                                                            "WARRANTY_USAGE"
+                                                        ? Colors
+                                                            .red // Red border if WARRANTY_USAGE
+                                                        : Colors
+                                                            .green, // Green border otherwise
                                                 width: 1,
                                               ),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Icon(
-                                                  _getTransactionTypeIcon(
-                                                    history.transactionType,
-                                                  ),
-                                                  size: 16,
-                                                  color:
-                                                      _getTransactionTypeColor(
-                                                        history.transactionType,
-                                                      ),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Colors.black
+                                                      .withOpacity(
+                                                        0.2,
+                                                      ), // soft shadow color
+                                                  blurRadius: 6,
+                                                  spreadRadius: 1,
+                                                  offset: const Offset(0, 3),
                                                 ),
-                                                const SizedBox(width: 4),
-                                                Text(
-                                                  _getDisplayText(
-                                                    history.transactionType,
-                                                  ), // 👈 mapped label
-                                                  style: TextStyle(
-                                                    color:
-                                                        _getTransactionTypeColor(
-                                                          history
-                                                              .transactionType,
+                                              ],
+                                            ),
+                                            child: Text(
+                                              history.transactionType ==
+                                                      "WARRANTY_USAGE"
+                                                  ? '- ₹${history.amount}'
+                                                  : '+ ₹${_getTotalReceived(history)}',
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color:
+                                                    history.transactionType ==
+                                                            "WARRANTY_USAGE"
+                                                        ? Colors.red
+                                                        : Colors.green,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      const SizedBox(height: 20),
+
+                                      // Customer Name Section
+                                      if (history.transactionType ==
+                                          "WARRANTY_USAGE")
+                                        _buildModernInfoRow(
+                                          Icons.person,
+                                          'CUSTOMER NAME',
+                                          history
+                                                  .customerDetails
+                                                  ?.customerName ??
+                                              history.fromUser?.name ??
+                                              'n/a',
+                                        ),
+
+                                      const SizedBox(height: 16),
+
+                                      // Transaction Type and Details Row
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: _buildModernInfoRow(
+                                              Icons.swap_horiz,
+                                              'TYPE',
+                                              _getDisplayText(
+                                                history.transactionType,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(width: 20),
+                                          Expanded(
+                                            child: _buildModernInfoRow(
+                                              Icons.account_balance_wallet,
+                                              'BASE AMOUNT',
+                                              '₹${history.amount}',
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+
+                                      const SizedBox(height: 20),
+
+                                      Container(
+                                        padding: const EdgeInsets.all(16),
+                                        decoration: BoxDecoration(
+                                          color: Colors.white.withOpacity(0.95),
+                                          border: Border.all(
+                                            color: Colors.red,
+                                            width: 1,
+                                          ),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              color: Colors.black.withOpacity(
+                                                0.1,
+                                              ), // soft shadow color
+                                              blurRadius:
+                                                  6, // how soft the shadow looks
+                                              spreadRadius:
+                                                  1, // how much it spreads
+                                              offset: const Offset(
+                                                0,
+                                                3,
+                                              ), // x=0, y=3 → shadow below
+                                            ),
+                                          ],
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        history.transactionType ==
+                                                                "WARRANTY_USAGE"
+                                                            ? 'DEBIT AMOUNT'
+                                                            : 'BONUS AMOUNT',
+                                                        style: TextStyle(
+                                                          fontSize: 12,
+                                                          color:
+                                                              Colors.grey[600],
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                          letterSpacing: 0.5,
                                                         ),
-                                                    fontWeight: FontWeight.w600,
-                                                    fontSize: 12,
+                                                      ),
+                                                      const SizedBox(height: 4),
+                                                      Text(
+                                                        history.transactionType ==
+                                                                "WARRANTY_USAGE"
+                                                            ? '- ₹${history.amount}'
+                                                            : '₹${history.bonusAmount}',
+                                                        style: TextStyle(
+                                                          fontSize: 18,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          color:
+                                                              history.transactionType ==
+                                                                      "WARRANTY_USAGE"
+                                                                  ? Colors.red
+                                                                  : Colors
+                                                                      .green,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                if (history.bonusPercentage !=
+                                                        "0" &&
+                                                    history.bonusAmount != "0")
+                                                  Expanded(
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          'MARGIN %',
+                                                          style: TextStyle(
+                                                            fontSize: 12,
+                                                            color:
+                                                                Colors
+                                                                    .grey[600],
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                            letterSpacing: 0.5,
+                                                          ),
+                                                        ),
+                                                        const SizedBox(
+                                                          height: 4,
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            Icon(
+                                                              Icons.trending_up,
+                                                              size: 16,
+                                                              color:
+                                                                  Colors.green,
+                                                            ),
+                                                            const SizedBox(
+                                                              width: 4,
+                                                            ),
+                                                            Text(
+                                                              '${history.bonusPercentage}%',
+                                                              style: const TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color:
+                                                                    Colors
+                                                                        .green,
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+
+                                            if (history.bonusAmount != "0" &&
+                                                history.bonusPercentage !=
+                                                    "0") ...[
+                                              const SizedBox(height: 16),
+                                              Container(
+                                                width: double.infinity,
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 16,
+                                                      vertical: 12,
+                                                    ),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.green[800],
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                ),
+                                                child: Text(
+                                                  'TOTAL RECEIVED: ₹${_getTotalReceived(history)}',
+                                                  textAlign: TextAlign.center,
+                                                  style: const TextStyle(
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    letterSpacing: 0.5,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ],
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 16),
+
+                                      // Policy/Transaction ID Section
+                                      if (history.warrantyKey != null ||
+                                          history.transactionId != null)
+                                        _buildModernInfoRow(
+                                          Icons.vpn_key,
+                                          history.transactionType ==
+                                                  "WARRANTY_USAGE"
+                                              ? 'POLICY NUMBER'
+                                              : 'TRANSACTION ID',
+                                          history.warrantyKey ??
+                                              history.transactionId ??
+                                              'n/a',
+                                        ),
+
+                                      // Notes Section
+                                      if (history.notes != null &&
+                                          history.notes!.isNotEmpty) ...[
+                                        const SizedBox(height: 16),
+                                        GestureDetector(
+                                          onTap: () {
+                                            if (history.notes != null &&
+                                                history.notes!.isNotEmpty) {
+                                              showDialog(
+                                                context: context,
+                                                builder: (
+                                                  BuildContext context,
+                                                ) {
+                                                  return AlertDialog(
+                                                    backgroundColor:
+                                                        const Color(0xffffffff),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            18,
+                                                          ),
+                                                      side: const BorderSide(
+                                                        color: Color(
+                                                          0xff244D9C,
+                                                        ),
+                                                        width: 1,
+                                                      ),
+                                                    ),
+                                                    title: const Text(
+                                                      'Remark',
+                                                      style: TextStyle(
+                                                        color: Color(
+                                                          0xff244D9C,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    content: SizedBox(
+                                                      height: 200,
+                                                      width: double.maxFinite,
+                                                      child: SingleChildScrollView(
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.min,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            const Divider(
+                                                              color: Color(
+                                                                0xFF000000,
+                                                              ),
+                                                              thickness: 1,
+                                                            ),
+                                                            const SizedBox(
+                                                              height: 18,
+                                                            ),
+                                                            Text(
+                                                              history.notes!,
+                                                              style:
+                                                                  const TextStyle(
+                                                                    color: Color(
+                                                                      0xff244D9C,
+                                                                    ),
+                                                                    fontSize:
+                                                                        14,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        style: TextButton.styleFrom(
+                                                          backgroundColor:
+                                                              const Color(
+                                                                0xff244D9C,
+                                                              ),
+                                                          foregroundColor:
+                                                              Colors.white,
+                                                          padding:
+                                                              const EdgeInsets.symmetric(
+                                                                horizontal: 16,
+                                                                vertical: 8,
+                                                              ),
+                                                          shape: RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius.circular(
+                                                                  6,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        child: const Text(
+                                                          'Close',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        onPressed:
+                                                            () =>
+                                                                Navigator.of(
+                                                                  context,
+                                                                ).pop(),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                            }
+                                          },
+                                          child: Container(
+                                            child: Row(
+                                              children: [
+                                                Container(
+                                                  padding: const EdgeInsets.all(
+                                                    6,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white
+                                                        .withOpacity(0.2),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          8,
+                                                        ),
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.notes,
+                                                    size: 16,
+                                                    color: Colors.white
+                                                        .withOpacity(0.8),
+                                                  ),
+                                                ),
+
+                                                const SizedBox(width: 8),
+                                                Expanded(
+                                                  child: Text(
+                                                    'Remark: ${history.notes!.length > 50 ? history.notes!.substring(0, 50) + "..." : history.notes!}',
+                                                    style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.white
+                                                          .withOpacity(0.9),
+                                                    ),
                                                   ),
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          Text(
-                                            history.transactionType ==
-                                                    "WARRANTY_USAGE"
-                                                ? '-₹${history.amount}'
-                                                : '₹${history.amount}',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: _getTransactionTypeColor(
-                                                history.transactionType,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-
-                                      const SizedBox(height: 16),
-
-                                      // Customer Information
-                                      if (history.transactionType ==
-                                          "WARRANTY_USAGE")
-                                        _buildInfoRow(
-                                          'Customer Name',
-                                          history
-                                                  .customerDetails
-                                                  ?.customerName ??
-                                              'n/a',
-                                          Icons.person,
                                         ),
-
-                                      const SizedBox(height: 8),
-
-                                      // Warranty Key
-                                      if (history.transactionType ==
-                                          "WARRANTY_USAGE")
-                                        _buildInfoRow(
-                                          'Warranty Key',
-                                          history.warrantyKey ?? 'n/a',
-                                          Icons.vpn_key,
-                                        ),
-
-                                      if (history.transactionType ==
-                                          "ALLOCATION")
-                                        _buildInfoRow(
-                                          'Transaction Id',
-                                          history.transactionId,
-                                          Icons.vpn_key,
-                                        ),
-
-                                      const SizedBox(height: 8),
-
-                                      // User Types Row
-                                      Row(
-                                        children: [
-                                          if (history.transactionType ==
-                                              "ALLOCATION")
-                                            Expanded(
-                                              child: _buildInfoRow(
-                                                'From',
-                                                history.fromUser != null
-                                                    ? history.fromUser!.name
-                                                    : 'n/a',
-                                                Icons.person_outline,
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                      const SizedBox(height: 8),
-
-                                      if (history.transactionType ==
-                                              "ALLOCATION" &&
-                                          history.bonusAmount != "0" &&
-                                          history.bonusPercentage != "0")
-                                        _buildBonusRow(
-                                          'Bonus amount',
-                                          history.bonusAmount,
-                                          history.bonusPercentage,
-                                          Icons.currency_rupee,
-                                        ),
-                                      const SizedBox(height: 8),
-
-                                      if (history.notes != null &&
-                                          history.notes!.isNotEmpty)
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  if (history.notes != null &&
-                                                      history
-                                                          .notes!
-                                                          .isNotEmpty) {
-                                                    showDialog(
-                                                      context: context,
-                                                      builder: (
-                                                        BuildContext context,
-                                                      ) {
-                                                        return AlertDialog(
-                                                          backgroundColor:
-                                                              Color(0xffffffff),
-                                                          shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius.circular(
-                                                                  18,
-                                                                ),
-                                                            side:
-                                                                const BorderSide(
-                                                                  color: Color(
-                                                                    0xff244D9C,
-                                                                  ),
-                                                                  width: 1,
-                                                                ),
-                                                          ),
-                                                          title: const Text(
-                                                            'Remark',
-                                                            style: TextStyle(
-                                                              color: Color(
-                                                                0xff244D9C,
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          content: SizedBox(
-                                                            height: 200,
-                                                            width:
-                                                                double
-                                                                    .maxFinite,
-                                                            child: SingleChildScrollView(
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  const Divider(
-                                                                    color: Color(
-                                                                      0xFF000000,
-                                                                    ),
-                                                                    thickness:
-                                                                        1,
-                                                                  ),
-                                                                  const SizedBox(
-                                                                    height: 18,
-                                                                  ),
-                                                                  SingleChildScrollView(
-                                                                    child: Text(
-                                                                      history
-                                                                          .notes!,
-                                                                      style: const TextStyle(
-                                                                        color: Color(
-                                                                          0xff244D9C,
-                                                                        ),
-                                                                        fontSize:
-                                                                            14,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          actions: [
-                                                            TextButton(
-                                                              style: TextButton.styleFrom(
-                                                                backgroundColor:
-                                                                    const Color(
-                                                                      0xff244D9C,
-                                                                    ),
-                                                                foregroundColor:
-                                                                    Colors
-                                                                        .white,
-                                                                padding:
-                                                                    const EdgeInsets.symmetric(
-                                                                      horizontal:
-                                                                          16,
-                                                                      vertical:
-                                                                          8,
-                                                                    ),
-                                                                shape: RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                        6,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                              child: const Text(
-                                                                'Close',
-                                                                style: TextStyle(
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                              ),
-                                                              onPressed:
-                                                                  () =>
-                                                                      Navigator.of(
-                                                                        context,
-                                                                      ).pop(),
-                                                            ),
-                                                          ],
-                                                        );
-                                                      },
-                                                    );
-                                                  }
-                                                },
-                                                child: _buildInfoRow(
-                                                  'Remark',
-                                                  history.notes ?? "n/a",
-                                                  Icons.notes,
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-
-                                      const SizedBox(height: 12),
-
-                                      // Date
-                                      Container(
-                                        padding: const EdgeInsets.all(8),
-                                        decoration: BoxDecoration(
-                                          color: Color(0xff244D9C),
-                                          borderRadius: BorderRadius.circular(
-                                            6,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            const Icon(
-                                              Icons.schedule,
-                                              size: 16,
-                                              color: Colors.white,
-                                            ),
-                                            const SizedBox(width: 8),
-                                            Text(
-                                              _formatDate(
-                                                history.transactionDate,
-                                              ),
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
+                                      ],
                                     ],
                                   ),
                                 ),
@@ -829,11 +1035,40 @@ class _HistoryDataState extends State<HistoryData> {
     );
   }
 
-  Widget _buildInfoRow(String label, String value, IconData icon) {
+  int _getTotalReceived(dynamic history) {
+    int bonus =
+        int.tryParse(history.bonusAmount) ??
+        double.tryParse(history.bonusAmount)?.toInt() ??
+        0;
+
+    int amount = 0;
+    if (history.amount is int) {
+      amount = history.amount;
+    } else if (history.amount is String) {
+      amount =
+          int.tryParse(history.amount) ??
+          double.tryParse(history.amount)?.toInt() ??
+          0;
+    } else if (history.amount is double) {
+      amount = history.amount.toInt();
+    }
+
+    return bonus + amount;
+  }
+
+  Widget _buildModernInfoRow(IconData icon, String label, String value) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, size: 16, color: Color(0xff244D9C)),
+        Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, size: 16, color: Colors.white.withOpacity(0.8)),
+        ),
+
         const SizedBox(width: 8),
         Expanded(
           child: Column(
@@ -842,9 +1077,10 @@ class _HistoryDataState extends State<HistoryData> {
               Text(
                 label,
                 style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey[800],
+                  fontSize: 10,
+                  color: Colors.white.withOpacity(0.7),
                   fontWeight: FontWeight.w500,
+                  letterSpacing: 0.5,
                 ),
               ),
               const SizedBox(height: 2),
@@ -855,7 +1091,7 @@ class _HistoryDataState extends State<HistoryData> {
                 style: const TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Color(0xff244D9C),
+                  color: Colors.white,
                 ),
               ),
             ],
@@ -871,58 +1107,66 @@ class _HistoryDataState extends State<HistoryData> {
     String percentValue,
     IconData icon,
   ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const SizedBox(width: 8),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey[800],
-                  fontWeight: FontWeight.w500,
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(0.95),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: Colors.green),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[600],
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 0.5,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 2),
-              RichText(
-                text: TextSpan(
+                const SizedBox(height: 4),
+                Row(
                   children: [
-                    // Rupee icon before value
-                    WidgetSpan(
-                      alignment: PlaceholderAlignment.middle,
-                      child: Icon(
-                        Icons.currency_rupee,
-                        size: 20,
-                        color: Color.fromARGB(255, 95, 141, 11), // green
-                      ),
-                    ),
-                    TextSpan(
-                      text: value,
+                    Text(
+                      '₹$value',
                       style: const TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Color.fromARGB(255, 95, 141, 11), // green
+                        fontWeight: FontWeight.w700,
+                        color: Colors.green,
                       ),
                     ),
-                    TextSpan(
-                      text: " ($percentValue%)",
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.grey,
+                    const SizedBox(width: 8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 8,
+                        vertical: 4,
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.green.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        '$percentValue%',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.green,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

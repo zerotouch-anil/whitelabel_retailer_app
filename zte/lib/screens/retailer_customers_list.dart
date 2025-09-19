@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:eWarranty/models/customers_list_model.dart';
 import 'package:eWarranty/screens/retailer_customer_details.dart';
-import 'package:eWarranty/utils/wooden_container.dart';
 import '../services/customer_service.dart';
 
 class RetailerViewCustomers extends StatefulWidget {
@@ -197,15 +196,14 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         elevation: 0,
-          shape: const RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(15),
             bottomRight: Radius.circular(15),
           ),
         ),
-        
       ),
-      
+
       body: Stack(
         children: [
           Positioned.fill(
@@ -217,7 +215,6 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                   width: double.infinity,
                   height: double.infinity,
                 ),
-                
               ],
             ),
           ),
@@ -286,26 +283,30 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                                     // e.g., update state or call a debounce function
                                   },
                                   style: const TextStyle(
-                                    color: Color(0xFF000000),
+                                    color: Color(0xFFffffff),
                                   ),
                                   decoration: InputDecoration(
                                     hintText: 'Search...',
                                     hintStyle: const TextStyle(
-                                      color: Color(0xff244D9C),
+                                      color: Color(0xffffffff),
                                     ),
                                     filled: true,
-                                    fillColor: const Color(0xFFffffff),
+                                    fillColor: const Color(0xff244D9C),
                                     contentPadding: const EdgeInsets.symmetric(
                                       horizontal: 16,
                                       vertical: 12,
                                     ),
                                     enabledBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(100),
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFffffff),
+                                        width: 1,
+                                      ),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(100),
                                       borderSide: const BorderSide(
-                                        color: Colors.blue,
+                                        color: Color(0xFFffffff),
                                         width: 1.5,
                                       ),
                                     ),
@@ -339,7 +340,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
                                         )
                                         : const Icon(
                                           Icons.search,
-                                          color: Colors.black,
+                                          color: Color(0xff244D9C),
                                           size: 25,
                                         ),
                               ),
@@ -400,7 +401,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
     if (_isLoading && _allCustomers.isEmpty) {
       return const Center(
         child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Color(0xff244D9C)),
+          valueColor: AlwaysStoppedAnimation<Color>(Color(0xffffffff)),
         ),
       );
     }
@@ -463,7 +464,6 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
         ),
       );
     }
-
     return ListView.builder(
       controller: _scrollController,
       padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
@@ -474,7 +474,7 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
             padding: EdgeInsets.all(16.0),
             child: Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Color(0xff244D9C)),
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             ),
           );
@@ -497,231 +497,297 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
               );
             },
             child: Container(
-              height: 250,
+              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12), 
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.08),
-                    blurRadius: 8,
-                    offset: const Offset(0, 2),
-                  ),
-                ],
+                color: const Color(0xff244D9C),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.white, width: 1),
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 16,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    /// --- Customer Name Header ---
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: screenWidth * 0.12,
-                          height: screenWidth * 0.12,
-                          decoration: BoxDecoration(
-                            color: const Color(0xff244D9C).withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: const Icon(
-                            Icons.person,
-                            color: Color(0xff244D9C),
-                            size: 24,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  /// Customer Name
+                  Row(
+                    children: [
+                      const Icon(Icons.person, color: Colors.white, size: 20),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          customer.name,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  /// Model Name & Category chips
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
+                          ),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF10B981).withOpacity(0.2),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Row(
                             children: [
-                              Text(
-                                customer.name,
-                                style: TextStyle(
-                                  fontSize: screenWidth * 0.042,
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xff244D9C),
-                                ),
+                              const Icon(
+                                Icons.devices,
+                                size: 18,
+                                color: Color(0xFF10B981),
                               ),
-                              const SizedBox(height: 4),
-                              Text(
-                                DateFormat.yMMMd().format(
-                                  customer.createdDate.toLocal(),
-                                ),
-                                style: TextStyle(
-                                  fontSize: screenWidth * 0.032,
-                                  color: Colors.grey[500],
-                                  fontWeight: FontWeight.w500,
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  customer.modelName,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Color(0xFF10B981),
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    /// --- Product Info ---
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        // Model Name Container
-                        Flexible(
-                          flex: 1,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFF10B981).withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                const Icon(
-                                  Icons.devices,
-                                  size: 16,
-                                  color: Color(0xFF10B981),
-                                ),
-                                const SizedBox(width: 6),
-                                Flexible(
-                                  child: Text(
-                                    customer.modelName,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: screenWidth * 0.036,
-                                      fontWeight: FontWeight.w600,
-                                      color: const Color(0xFF10B981),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
                           ),
-                        ),
-
-                        const SizedBox(width: 8),
-
-                        // Category Container
-                        Flexible(
-                          flex: 1,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 6,
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.orange.shade500.withOpacity(0.1),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Icon(
-                                  Icons.category,
-                                  size: 16,
-                                  color: Colors.orange.shade600,
-                                ),
-                                const SizedBox(width: 6),
-                                Flexible(
-                                  child: Text(
-                                    customer.category.isNotEmpty
-                                        ? customer.category
-                                        : 'N/A',
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: screenWidth * 0.036,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.orange.shade600,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-
-                    /// --- Premium Amount ---
-                    Row(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: const Color(0xFFF59E0B).withOpacity(0.1),
+                            color: Colors.orange.withOpacity(0.2),
                             borderRadius: BorderRadius.circular(8),
                           ),
-                          child: const Icon(
-                            Icons.currency_rupee,
-                            size: 20,
-                            color: Color(0xFFF59E0B),
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.category,
+                                size: 18,
+                                color: Colors.orange,
+                              ),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  customer.category.isNotEmpty
+                                      ? customer.category
+                                      : "N/A",
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.orange,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                        const SizedBox(width: 12),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              '₹${customer.actualAmount}',
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.045,
-                                fontWeight: FontWeight.w700,
-                                color: const Color.fromARGB(255, 5, 145, 40),
-                              ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  _buildBalanceSection(customer),
+                  const SizedBox(height: 16),
+
+                  /// Warranty Key
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: const Color(0xff244D9C),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.vpn_key,
+                          color: Colors.white,
+                          size: 18,
+                        ),
+                        const SizedBox(width: 8),
+                        Expanded(
+                          child: Text(
+                            customer.warrantyKey,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "monospace",
                             ),
-                            Text(
-                              'Premium Amount',
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.032,
-                                color: Colors.grey[500],
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ],
                     ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
-                    const SizedBox(height: 12),
+  Widget _buildBalanceSection(CustomersData customer) {
+    final int profit = customer.premiumAmount - customer.actualAmount;
 
-                    /// --- Warranty Key ---
-                    Container(
-                      padding: const EdgeInsets.all(12),
-                      decoration: BoxDecoration(
-                        color: Color(0xff244D9C),
-                        borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: Colors.grey[200]!, width: 1),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF064E3B), // dark green background
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(
+          color: Colors.white, // white border
+          width: 1, // border width
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// --- Top Row (Amounts + Margin %) ---
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Actual Amount
+                  const Text(
+                    "ACTUAL AMOUNT",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.currency_rupee,
+                        size: 16,
+                        color: Colors.white70,
                       ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.security,
-                            size: 18,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 8),
-                          Expanded(
-                            child: Text(
-                              customer.warrantyKey,
-                              style: TextStyle(
-                                fontSize: screenWidth * 0.035,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white,
-                                fontFamily: 'monospace',
-                              ),
-                            ),
-                          ),
-                        ],
+                      const SizedBox(width: 4),
+                      Text(
+                        "${customer.actualAmount}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  // Premium Amount
+                  const Text(
+                    "PREMIUM AMOUNT",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white70,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.currency_rupee,
+                        size: 16,
+                        color: Colors.white70,
+                      ),
+                      const SizedBox(width: 4),
+                      Text(
+                        "${customer.premiumAmount}",
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              // Margin %
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade600,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      blurRadius: 6,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: Text(
+                  "${customer.actualPercent}%",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 20),
+
+          /// --- Profit Earned Center Box ---
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+            decoration: BoxDecoration(
+              color: Colors.green.shade800.withOpacity(0.6),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                  text: "Profit Earned ",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: "₹$profit",
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white, // blue highlight
                       ),
                     ),
                   ],
@@ -729,8 +795,8 @@ class _RetailerViewCustomersState extends State<RetailerViewCustomers> {
               ),
             ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }

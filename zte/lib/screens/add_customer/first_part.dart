@@ -29,7 +29,7 @@ class FirstPart extends StatefulWidget {
 }
 
 class _FirstPartState extends State<FirstPart> {
-  static const Color _goldenColor = Color(0xff244D9C);
+  static const Color _goldenColor = Color(0xffffffff);
 
   Brand? selectedBrand;
   int? selectedDuration;
@@ -83,7 +83,7 @@ class _FirstPartState extends State<FirstPart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: Color(0xFF244D9C),
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -93,7 +93,10 @@ class _FirstPartState extends State<FirstPart> {
             const SizedBox(height: 15),
             _buildBrandDropdown(),
             if (_showOtherBrandField) _buildOtherBrandField(),
-            Text("Enter the invoice amount for this product", style: TextStyle(color: Color.fromARGB(255, 136, 133, 133))),
+            Text(
+              "Enter the invoice amount for this product",
+              style: TextStyle(color: Color.fromARGB(255, 214, 210, 210)),
+            ),
             const SizedBox(height: 5),
             _buildPurchasePriceField(),
             _buildOriginalWarrantyDropdown(),
@@ -154,7 +157,7 @@ class _FirstPartState extends State<FirstPart> {
                                     actions: [
                                       TextButton(
                                         style: TextButton.styleFrom(
-                                          backgroundColor: Colors.blue,
+                                          backgroundColor: Color(0xFF244D9C),
                                           padding: const EdgeInsets.symmetric(
                                             horizontal: 20,
                                             vertical: 10,
@@ -184,8 +187,10 @@ class _FirstPartState extends State<FirstPart> {
                           }
                           : null,
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[900]!,
-                    foregroundColor: Colors.white,
+                    backgroundColor: Color(0xffC3B900),
+                    foregroundColor: Colors.black,
+                    disabledBackgroundColor: Colors.grey,
+                    disabledForegroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                   ),
                   child: const Text('Next'),
@@ -241,7 +246,7 @@ class _FirstPartState extends State<FirstPart> {
                 value: brand,
                 child: Text(
                   brand.brandName,
-                  style: const TextStyle(color: _goldenColor),
+                  style: TextStyle(color: Colors.black),
                 ),
               );
             }).toList(),
@@ -400,7 +405,7 @@ class _FirstPartState extends State<FirstPart> {
                 value: option,
                 child: Text(
                   option,
-                  style: const TextStyle(color: _goldenColor),
+                  style: const TextStyle(color: Colors.black),
                 ),
               );
             }).toList(),
@@ -437,7 +442,7 @@ class _FirstPartState extends State<FirstPart> {
               return Theme(
                 data: Theme.of(context).copyWith(
                   colorScheme: Theme.of(context).colorScheme.copyWith(
-                    primary: _goldenColor,
+                    primary: Color(0xFF244D9C),
                     onPrimary: Colors.white,
                     surface: const Color.fromARGB(255, 79, 107, 117),
                   ),
@@ -538,7 +543,14 @@ class _FirstPartState extends State<FirstPart> {
   Widget _buildDetailsCard() {
     return Card(
       color: Color(0xff244D9C),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(
+          color: Colors.white, // white border
+          width: 1, // border width
+        ),
+      ),
+
       elevation: 2,
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -580,12 +592,12 @@ class _FirstPartState extends State<FirstPart> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
           side: BorderSide(
-            color: isSelected ? _goldenColor : _goldenColor.withOpacity(0.3),
+            color: isSelected ? Colors.white : _goldenColor.withOpacity(0.3),
             width: isSelected ? 2 : 1,
           ),
         ),
         elevation: 2,
-        color: isSelected ? _goldenColor.withOpacity(0.1) : Colors.white,
+        color: isSelected ? _goldenColor.withOpacity(0.1) : Color(0xFF244D9C),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Row(
@@ -648,10 +660,10 @@ class _FirstPartState extends State<FirstPart> {
                     });
                     _isFormFirstComplete();
                   },
-                  icon: const Icon(Icons.add, size: 16, color: Colors.white),
+                  icon: const Icon(Icons.add, size: 16, color: Colors.black),
                   label: const Text(
                     "Add",
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                    style: TextStyle(color: Colors.black, fontSize: 12),
                   ),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _goldenColor,

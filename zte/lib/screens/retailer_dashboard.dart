@@ -895,23 +895,43 @@ class _RetailerDashboardState extends State<RetailerDashboard> {
                     borderRadius: BorderRadius.circular(3),
                   ),
 
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 4,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Color(0xff91E793), // background color
-                      borderRadius: BorderRadius.circular(8), // rounded corners
-                    ),
-                    child: Text(
-                      '₹${customer.actualAmount}',
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
+                  child: Row(
+                    children: [
+                      /// --- Actual Amount ---
+                      Container(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 8,
+                          vertical: 4,
+                        ),
+                        decoration: BoxDecoration(
+                          color: const Color(0xff91E793), // background color
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '₹${customer.actualAmount}',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black,
+                          ),
+                        ),
                       ),
-                    ),
+
+                      const SizedBox(width: 8),
+
+                      /// --- Premium Amount with strike-through + brackets ---
+                      Text(
+                        '(₹${customer.premiumAmount})',
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black54,
+                          decoration: TextDecoration.lineThrough,
+                          decorationColor: Colors.red, // optional red strike
+                          decorationThickness: 2,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],

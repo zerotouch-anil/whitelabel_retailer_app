@@ -94,11 +94,11 @@ class _AddCustomerScreenState extends State<AddCustomerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffffffff),
+      backgroundColor: const Color(0xff244D9C),
       appBar: AppBar(
         title: Text(_pageTitles[_currentPage]),
-        backgroundColor: const Color(0xffFFFFFF),
-        foregroundColor: const Color(0xff244D9C),
+        backgroundColor: const Color(0xff244D9C),
+        foregroundColor: const Color(0xffffffff),
         elevation: 1,
       ),
       body: FutureBuilder<List<Brand>>(

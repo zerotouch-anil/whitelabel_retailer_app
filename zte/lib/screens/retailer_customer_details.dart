@@ -14,7 +14,6 @@ class ViewCustomer extends StatefulWidget {
 
 class _ViewCustomerState extends State<ViewCustomer> {
   @override
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -23,31 +22,30 @@ class _ViewCustomerState extends State<ViewCustomer> {
         centerTitle: true,
         title: const Text(
           'Customer Details',
-          style: TextStyle(fontWeight: FontWeight.w400),
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 18,
+            color: Colors.white,
+          ),
         ),
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color(0xff244D9C),
         foregroundColor: const Color(0xFFffffff),
         elevation: 0,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1),
-          child: Container(height: 1, color: Color(0xFFffffff)),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(20)),
         ),
       ),
       body: Stack(
         children: [
-           Positioned.fill(
-            child: Stack(
-              children: [
-                Image.asset(
-                  'assets/bg.png',
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-              ],
+          // Background Image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/bg.png',
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: double.infinity,
             ),
           ),
-         
 
           // Foreground content
           FutureBuilder<ParticularCustomerData>(
@@ -56,7 +54,7 @@ class _ViewCustomerState extends State<ViewCustomer> {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                   ),
                 );
               } else if (snapshot.hasError) {
@@ -79,15 +77,11 @@ class _ViewCustomerState extends State<ViewCustomer> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
-                        Icons.inbox_outlined,
-                        size: 64,
-                        color: Color(0xff244D9C),
-                      ),
+                      Icon(Icons.inbox_outlined, size: 64, color: Colors.white),
                       const SizedBox(height: 16),
                       Text(
                         'No data available',
-                        style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                        style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
                     ],
                   ),
@@ -97,23 +91,34 @@ class _ViewCustomerState extends State<ViewCustomer> {
                 return SafeArea(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 10),
-                        _buildCustomerDetailsSection(customer.customerDetails),
-                        const SizedBox(height: 30),
-                        _buildWarrantyDetailsSection(customer),
-                        const SizedBox(height: 30),
-                        _buildProductDetailsSection(customer.productDetails),
-                        const SizedBox(height: 30),
-                        
-                        _buildInvoiceDetailsSection(customer.invoiceDetails),
-                        const SizedBox(height: 30),
-
-                        _buildDatesSection(customer.dates),
-                        const SizedBox(height: 30),
-                      ],
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 1),
+                      decoration: BoxDecoration(
+                        color: Color(0xFF244D9C), // semi-transparent
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: Colors.white.withOpacity(0.2),
+                          width: 1,
+                        ),
+                      ),
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 10),
+                          _buildCustomerDetailsSection(
+                            customer.customerDetails,
+                          ),
+                          _buildYellowDivider(),
+                          _buildWarrantyDetailsSection(customer),
+                          _buildYellowDivider(),
+                          _buildProductDetailsSection(customer.productDetails),
+                          _buildYellowDivider(),
+                          _buildInvoiceDetailsSection(customer.invoiceDetails),
+                          _buildYellowDivider(),
+                          _buildDatesSection(customer.dates),
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -130,26 +135,30 @@ class _ViewCustomerState extends State<ViewCustomer> {
     required Widget child,
     Color? borderColor,
   }) {
-    return Card(
-      color: Color(0xffffffff),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                color: Colors.black,
-              ),
-            ),
-            const SizedBox(height: 16),
-            child,
-          ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title.toUpperCase(),
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+            color: Colors.yellow,
+            letterSpacing: 0.5,
+          ),
         ),
-      ),
+        const SizedBox(height: 16),
+        child,
+      ],
+    );
+  }
+
+  Widget _buildYellowDivider() {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 20),
+      height: 1,
+      width: double.infinity,
+      color: Colors.yellow,
     );
   }
 
@@ -159,36 +168,47 @@ class _ViewCustomerState extends State<ViewCustomer> {
     IconData? icon,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (icon != null) ...[
-            Icon(icon, size: 20, color: Color(0xff244D9C)),
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, size: 16, color: Colors.white.withOpacity(0.8)),
+            ),
             const SizedBox(width: 12),
           ],
           Expanded(
-            flex: 2,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[800],
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: Text(
-              value.isEmpty ? ' Not provided' : value,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontSize: 14,
-                color: value.isEmpty ? Colors.grey[500] : Color(0xff244D9C),
-                fontWeight: value.isEmpty ? FontWeight.normal : FontWeight.w500,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white.withOpacity(0.7),
+                    letterSpacing: 0.3,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value.isEmpty ? 'Not provided' : value,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color:
+                        value.isEmpty
+                            ? Colors.white.withOpacity(0.5)
+                            : Colors.white,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -197,67 +217,149 @@ class _ViewCustomerState extends State<ViewCustomer> {
   }
 
   Widget _buildMoneyRow({
-    required String label,
-    required String value,
-    required String actualAmount,
-    required String actualPercent,
-    IconData? icon,
+    required int premiumAmount,
+    required int actualAmount,
+    required int actualPercent,
   }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Row(
+    final profit = premiumAmount - actualAmount;
+
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: const Color(0xFF064E3B), // dark green like screenshot
+        border: Border.all(
+          color: Colors.white, // white border
+          width: 1, // border width
+        ),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (icon != null) ...[
-            Icon(icon, size: 20, color: Color(0xff244D9C)),
-            const SizedBox(width: 12),
-          ],
-          Expanded(
-            flex: 2,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[800],
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 3,
-            child: RichText(
-              text: TextSpan(
+          /// --- Row: Actual Amount + Margin % ---
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Actual Amount
-                  TextSpan(
-                    text: "₹$actualAmount ",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                      color: Color.fromARGB(255, 95, 141, 11), // green
+                  const Text(
+                    "ACTUAL AMOUNT",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white70,
                     ),
                   ),
-                  // Old Value (strikethrough)
-                  if (value.isNotEmpty)
-                    TextSpan(
-                      text: "(₹$value )",
-                      style: const TextStyle(
-                        fontSize: 15,
-                        color: Colors.grey,
-                        decoration: TextDecoration.lineThrough,
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.currency_rupee,
+                        size: 16,
+                        color: Colors.white70,
                       ),
-                    ),
-                  // Percent Margin
-                  TextSpan(
-                    text: "\n$actualPercent% Margin",
+                      Text(
+                        "$actualAmount",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+
+              /// --- Margin Badge ---
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.green.shade600,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  "$actualPercent%",
+                  style: const TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          /// --- Premium Amount ---
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                "PREMIUM AMOUNT",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white70,
+                ),
+              ),
+              const SizedBox(height: 6),
+              Row(
+                children: [
+                  const Icon(
+                    Icons.currency_rupee,
+                    size: 16,
+                    color: Colors.white70,
+                  ),
+                  Text(
+                    "$premiumAmount",
                     style: const TextStyle(
-                      fontSize: 13,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
-                      color: Colors.amber,
-                      fontStyle: FontStyle.italic,
+                      color: Colors.white,
                     ),
                   ),
                 ],
+              ),
+            ],
+          ),
+
+          const SizedBox(height: 16),
+
+          /// --- Profit Earned ---
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            decoration: BoxDecoration(
+              color: Colors.green.shade700.withOpacity(0.5),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: RichText(
+                text: TextSpan(
+                  text: "Profit Earned ",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    color: Colors.white70,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: "₹$profit",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFFffffff), // blue like screenshot
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -272,26 +374,29 @@ class _ViewCustomerState extends State<ViewCustomer> {
       child: Column(
         children: [
           _buildInfoRow(
-            label: 'Name',
+            label: 'Customer Name',
             value: details.name,
-            icon: Icons.person_outline,
+            icon: Icons.person,
           ),
+          const SizedBox(height: 12),
           _buildInfoRow(
-            label: 'Email',
+            label: 'Email Id',
             value: details.email,
-            icon: Icons.email_outlined,
+            icon: Icons.email,
           ),
+          const SizedBox(height: 12),
           _buildInfoRow(
-            label: 'Mobile',
+            label: 'Mobile Number',
             value: details.mobile,
-            icon: Icons.phone_outlined,
+            icon: Icons.phone,
           ),
+          const SizedBox(height: 12),
           _buildInfoRow(
-            label: 'Alternate Number',
+            label: 'Alternate Phone',
             value: details.alternateNumber,
-            icon: Icons.phone_android_outlined,
+            icon: Icons.phone_android,
           ),
-          const Divider(height: 24, color: Color(0xff244D9C)),
+          const SizedBox(height: 12),
           _buildAddressSection(details.address),
         ],
       ),
@@ -308,149 +413,51 @@ class _ViewCustomerState extends State<ViewCustomer> {
       address.zipCode,
     ].where((element) => element.isNotEmpty).join(', ');
 
-    return Column(
+    return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Icon(
-              Icons.location_on_outlined,
-              size: 20,
-              color: Color(0xff244D9C),
-            ),
-            const SizedBox(width: 12),
-            Text(
-              'Address',
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey[800],
-              ),
-            ),
-          ],
+        Container(
+          padding: const EdgeInsets.all(6),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(
+            Icons.location_on,
+            size: 16,
+            color: Colors.white.withOpacity(0.8),
+          ),
         ),
-        const SizedBox(height: 8),
-        Padding(
-          padding: const EdgeInsets.only(left: 32),
-          child: Text(
-            fullAddress.isEmpty ? 'Not provided' : fullAddress,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              fontSize: 14,
-              color: fullAddress.isEmpty ? Colors.grey[500] : Color(0xff244D9C),
-              fontWeight:
-                  fullAddress.isEmpty ? FontWeight.normal : FontWeight.w500,
-            ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'ADDRESS:',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white.withOpacity(0.7),
+                  letterSpacing: 0.3,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                fullAddress.isEmpty ? 'Not provided' : fullAddress,
+                style: TextStyle(
+                  fontSize: 14,
+                  color:
+                      fullAddress.isEmpty
+                          ? Colors.white.withOpacity(0.5)
+                          : Colors.white,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildProductDetailsSection(ProductDetails details) {
-    return _buildSectionCard(
-      title: 'Product Information',
-      child: Column(
-        children: [
-          _buildInfoRow(
-            label: 'Model Name',
-            value: details.modelName,
-            icon: Icons.smartphone_outlined,
-          ),
-          _buildInfoRow(
-            label: 'Brand',
-            value:
-                details.brand == "Others"
-                    ? (details.otherBrandName ?? '')
-                    : (details.brand),
-            icon: Icons.branding_watermark_outlined,
-          ),
-          _buildInfoRow(
-            label: 'Category',
-            value: details.category,
-            icon: Icons.category_outlined,
-          ),
-          _buildInfoRow(
-            label: 'Serial/Unique/IMEI Number',
-            value: details.serialNumber,
-            icon: Icons.pin_outlined,
-          ),
-          _buildInfoRow(
-            label: 'Original Warranty',
-            value:
-                details.originalWarranty > 0
-                    ? '${details.originalWarranty} year'
-                    : '',
-            icon: Icons.pin_outlined,
-          ),
-          _buildInfoRow(
-            label: 'Purchase Price',
-            value: details.purchasePrice > 0 ? '₹${details.purchasePrice}' : '',
-            icon: Icons.currency_rupee_outlined,
-          ),
-        ],
-      ),
-      borderColor: Colors.green[600],
-    );
-  }
-
-  Widget _buildInvoiceDetailsSection(InvoiceDetails details) {
-    return _buildSectionCard(
-      title: 'Invoice Information',
-      child: Column(
-        children: [
-          _buildInfoRow(
-            label: 'Invoice Number',
-            value: details.invoiceNumber,
-            icon: Icons.receipt_outlined,
-          ),
-          _buildInfoRow(
-            label: 'Invoice Date',
-            value: _formatDate(details.invoiceDate),
-            icon: Icons.calendar_today_outlined,
-          ),
-          if (details.invoiceImage.isNotEmpty) ...[
-            const SizedBox(height: 12),
-            GestureDetector(
-              onTap: () => _showImageDialog(details.invoiceImage),
-              child: Container(
-                height: 120,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: Colors.grey[300]!),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.network(
-                    baseUrl + details.invoiceImage,
-                    fit: BoxFit.cover,
-                    loadingBuilder: (context, child, loadingProgress) {
-                      if (loadingProgress == null) return child;
-                      return Container(
-                        color: Colors.grey[100],
-                        child: const Center(child: CircularProgressIndicator()),
-                      );
-                    },
-                    errorBuilder: (context, error, stackTrace) {
-                      return Container(
-                        color: Colors.grey[100],
-                        child: Icon(
-                          Icons.broken_image_outlined,
-                          color: Colors.grey[400],
-                          size: 48,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ],
-      ),
-      borderColor: Colors.pink[600],
     );
   }
 
@@ -466,170 +473,169 @@ class _ViewCustomerState extends State<ViewCustomer> {
           _buildInfoRow(
             label: 'Warranty Key',
             value: customer.warrantyKey,
-            icon: Icons.vpn_key_outlined,
+            icon: Icons.vpn_key,
           ),
-
+          const SizedBox(height: 12),
           _buildInfoRow(
             label: 'Warranty Period',
             value:
                 customer.warrantyDetails.warrantyPeriod > 0
-                    ? '${customer.warrantyDetails.warrantyPeriod} months'
+                    ? '${customer.warrantyDetails.warrantyPeriod} Months'
                     : '',
-            icon: Icons.timer_outlined,
+            icon: Icons.schedule,
           ),
+          const SizedBox(height: 12),
           _buildInfoRow(
             label: 'Start Date',
             value: _formatDate(customer.warrantyDetails.startDate),
-            icon: Icons.play_arrow_outlined,
+            icon: Icons.play_arrow,
           ),
+          const SizedBox(height: 12),
           _buildInfoRow(
             label: 'Expiry Date',
             value: _formatDate(customer.warrantyDetails.expiryDate),
-            icon: Icons.stop_outlined,
-          ),
-          _buildMoneyRow(
-            label: 'Premium Amount',
-            value:
-                customer.warrantyDetails.premiumAmount > 0
-                    ? '${customer.warrantyDetails.premiumAmount.round()}'
-                    : '',
-            actualAmount: customer.warrantyDetails.actualAmount,
-            actualPercent: customer.warrantyDetails.actualPercent,
-            icon: Icons.currency_rupee_outlined,
+            icon: Icons.stop,
           ),
           const SizedBox(height: 12),
-          if (customer.notes.isNotEmpty)
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(Icons.note_outlined, size: 20, color: Color(0xff244D9C)),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: GestureDetector(
-                    onTap: () {
-                      if (customer.notes.isNotEmpty) {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: const Color(0xffffffff),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18),
-                                side: const BorderSide(
-                                  color: Color(0xff244D9C), // Yellow border
-                                  width: 1,
+          _buildMoneyRow(
+            premiumAmount: customer.warrantyDetails.premiumAmount,
+            actualAmount: customer.warrantyDetails.actualAmount,
+            actualPercent: customer.warrantyDetails.actualPercent,
+          ),
+
+          if (customer.notes.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            GestureDetector(
+              onTap: () {
+                if (customer.notes.isNotEmpty) {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: const Color(0xffffffff),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18),
+                          side: const BorderSide(
+                            color: Color(0xff244D9C),
+                            width: 1,
+                          ),
+                        ),
+                        title: const Text(
+                          'Remark',
+                          style: TextStyle(color: Color(0xff244D9C)),
+                        ),
+                        content: SizedBox(
+                          height: 200,
+                          width: double.maxFinite,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Divider(
+                                  color: Color(0xff000000),
+                                  thickness: 1,
                                 ),
-                              ),
-                              title: const Text(
-                                'Remark',
-                                style: TextStyle(color: Color(0xff244D9C)),
-                              ),
-                              content: SizedBox(
-                                height: 200,
-                                width: double.maxFinite,
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const Divider(
-                                        color: Color(0xff000000),
-                                        thickness: 1,
-                                      ),
-                                      const SizedBox(height: 18),
-                                      Text(
-                                        customer.notes,
-                                        style: const TextStyle(
-                                          color: Color(0xff244D9C),
-                                          fontSize: 14,
-                                        ),
-                                      ),
-                                    ],
+                                const SizedBox(height: 18),
+                                Text(
+                                  customer.notes,
+                                  style: const TextStyle(
+                                    color: Color(0xff244D9C),
+                                    fontSize: 14,
                                   ),
-                                ),
-                              ),
-                              actions: [
-                                TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: const Color(0xff244D9C),
-                                    foregroundColor: Colors.white,
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 16,
-                                      vertical: 8,
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6),
-                                    ),
-                                  ),
-                                  child: const Text(
-                                    'Close',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  onPressed: () => Navigator.of(context).pop(),
                                 ),
                               ],
-                            );
-                          },
-                        );
-                      }
+                            ),
+                          ),
+                        ),
+                        actions: [
+                          TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: const Color(0xff244D9C),
+                              foregroundColor: Colors.white,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                            ),
+                            child: const Text(
+                              'Close',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                        ],
+                      );
                     },
-
+                  );
+                }
+              },
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(
+                    Icons.note,
+                    size: 16,
+                    color: Colors.white.withOpacity(0.7),
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Remark',
+                          'REMARK:',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 11,
                             fontWeight: FontWeight.w500,
-                            color: Colors.grey[800],
+                            color: Colors.white.withOpacity(0.7),
+                            letterSpacing: 0.3,
                           ),
                         ),
-                        const SizedBox(height: 4),
+                        const SizedBox(height: 2),
                         Text(
                           customer.notes,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 14,
-                            color: Color(0xff244D9C),
+                            color: Colors.white,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          const SizedBox(height: 20),
-
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 90, vertical: 6),
-            decoration: BoxDecoration(
-              color: isActive ? Colors.transparent : Colors.transparent,
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(
-                color: isActive ? Colors.green[200]! : Colors.red[200]!,
+                ],
               ),
             ),
+          ],
+
+          const SizedBox(height: 16),
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(vertical: 12),
+            decoration: BoxDecoration(
+              color: isActive ? Colors.green : Colors.red,
+              borderRadius: BorderRadius.circular(25),
+            ),
             child: Row(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  isActive ? Icons.check_circle_outline : Icons.cancel_outlined,
-                  size: 16,
-                  color: isActive ? Colors.green[700] : Colors.red[700],
+                  isActive ? Icons.check_circle : Icons.cancel,
+                  size: 20,
+                  color: Colors.white,
                 ),
-                const SizedBox(width: 6),
+                const SizedBox(width: 8),
                 Text(
                   isActive ? 'Active' : 'Expired',
-                  style: TextStyle(
-                    fontSize: 12,
+                  style: const TextStyle(
+                    fontSize: 16,
                     fontWeight: FontWeight.w600,
-                    color: isActive ? Colors.green[700] : Colors.red[700],
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -641,26 +647,143 @@ class _ViewCustomerState extends State<ViewCustomer> {
     );
   }
 
+  Widget _buildProductDetailsSection(ProductDetails details) {
+    return _buildSectionCard(
+      title: 'Product Information',
+      child: Column(
+        children: [
+          _buildInfoRow(
+            label: 'Model Name',
+            value: details.modelName,
+            icon: Icons.smartphone,
+          ),
+          const SizedBox(height: 12),
+          _buildInfoRow(
+            label: 'Brand',
+            value:
+                details.brand == "Others"
+                    ? (details.otherBrandName ?? '')
+                    : (details.brand),
+            icon: Icons.branding_watermark,
+          ),
+          const SizedBox(height: 12),
+          _buildInfoRow(
+            label: 'Category',
+            value: details.category,
+            icon: Icons.category,
+          ),
+          const SizedBox(height: 12),
+          _buildInfoRow(
+            label: 'IMEI Number',
+            value: details.serialNumber,
+            icon: Icons.confirmation_number,
+          ),
+          const SizedBox(height: 12),
+          _buildInfoRow(
+            label: 'Original Warranty',
+            value:
+                details.originalWarranty > 0
+                    ? '${details.originalWarranty} Year'
+                    : '',
+            icon: Icons.verified_user,
+          ),
+          const SizedBox(height: 12),
+          _buildInfoRow(
+            label: 'Purchase Price',
+            value: details.purchasePrice > 0 ? '₹${details.purchasePrice}' : '',
+            icon: Icons.currency_rupee,
+          ),
+        ],
+      ),
+      borderColor: Colors.green[600],
+    );
+  }
+
+  Widget _buildInvoiceDetailsSection(InvoiceDetails details) {
+    return _buildSectionCard(
+      title: 'Invoice Information',
+      child: Column(
+        children: [
+          _buildInfoRow(
+            label: 'Invoice Number',
+            value: details.invoiceNumber,
+            icon: Icons.receipt_long,
+          ),
+          const SizedBox(height: 12),
+          _buildInfoRow(
+            label: 'Invoice Date',
+            value: _formatDate(details.invoiceDate),
+            icon: Icons.calendar_today,
+          ),
+          if (details.invoiceImage.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            GestureDetector(
+              onTap: () => _showImageDialog(details.invoiceImage),
+              child: Container(
+                height: 120,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white.withOpacity(0.1),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(12),
+                  child: Image.network(
+                    baseUrl + details.invoiceImage,
+                    fit: BoxFit.cover,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) return child;
+                      return Container(
+                        color: Colors.white.withOpacity(0.1),
+                        child: const Center(
+                          child: CircularProgressIndicator(color: Colors.white),
+                        ),
+                      );
+                    },
+                    errorBuilder: (context, error, stackTrace) {
+                      return Container(
+                        color: Colors.white.withOpacity(0.1),
+                        child: Icon(
+                          Icons.broken_image_outlined,
+                          color: Colors.white.withOpacity(0.5),
+                          size: 48,
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ],
+      ),
+      borderColor: Colors.pink[600],
+    );
+  }
+
   Widget _buildDatesSection(CustomerDates dates) {
     return _buildSectionCard(
       title: 'Important Dates',
       child: Column(
         children: [
-          if (dates.pickedDate != null)
+          if (dates.pickedDate != null) ...[
             _buildInfoRow(
               label: 'Picked Date',
               value: _formatDate(dates.pickedDate!),
-              icon: Icons.event_outlined,
+              icon: Icons.event,
             ),
+            const SizedBox(height: 12),
+          ],
           _buildInfoRow(
             label: 'Created Date',
             value: _formatDate(dates.createdDate),
             icon: Icons.add_circle_outline,
           ),
+          const SizedBox(height: 12),
           _buildInfoRow(
             label: 'Last Modified',
             value: _formatDate(dates.lastModifiedDate),
-            icon: Icons.update_outlined,
+            icon: Icons.update,
           ),
         ],
       ),

@@ -3,7 +3,8 @@ class CustomersData {
   final String modelName;
   final String planId;
   final int premiumAmount; 
-  final String actualAmount;
+  final int actualAmount;
+  final int actualPercent;
   final String warrantyKey;
   final String customerId;
   final DateTime createdDate;
@@ -18,6 +19,7 @@ class CustomersData {
     required this.planId,
     required this.premiumAmount,
     required this.actualAmount,
+    required this.actualPercent,
     required this.warrantyKey,
     required this.customerId,
     required this.createdDate,
@@ -29,6 +31,9 @@ class CustomersData {
 
   factory CustomersData.fromJson(Map<String, dynamic> json) {
     final premium = json['warrantyDetails']['premiumAmount'];
+    final actualAmnt = json['warrantyDetails']['actualAmount'];
+    final actualPer = json['warrantyDetails']['actualPercent'];
+
 
     return CustomersData(
       name: json['customerDetails']['name'] ?? '',
@@ -39,8 +44,16 @@ class CustomersData {
           : premium is double
               ? premium.round()
               : 0,
-      actualAmount: json['actualAmount']?.toString() ?? '',
-
+      actualAmount: actualAmnt is int
+          ? actualAmnt
+          : actualAmnt is double
+              ? actualAmnt.round()
+              : 0,
+      actualPercent: actualPer is int
+          ? actualPer
+          : actualPer is double
+              ? actualPer.round()
+              : 0,
       warrantyKey: json['warrantyKey'] ?? '',
       customerId: json['customerId']?.toString() ?? '',
       createdDate: DateTime.parse(json['dates']['createdDate']),
