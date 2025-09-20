@@ -367,9 +367,6 @@ class _FirstPartState extends State<FirstPart> {
     const List<String> warrantyOptions = [
       '1 Year',
       '2 Year',
-      '3 Year',
-      '4 Year',
-      '5 Year',
     ];
 
     return Padding(
